@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Malaysia Map — Vega-Lite</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Vega libs -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <style>
+    body{font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 24px;}
+    h2{margin: 24px 0 8px}
+    .wrap{display:grid; gap:28px; max-width:1100px}
+    .card{padding:16px; border:1px solid #e5e7eb; border-radius:12px; box-shadow: 0 2px 10px rgba(0,0,0,.04)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h2>A) Malaysia — country outline (from world TopoJSON)</h2>
+      <div id="map-country"></div>
+    </div>
+
+    <div class="card">
+      <h2>B) Malaysia — states (GeoJSON)</h2>
+      <div id="map-states"></div>
+    </div>
+  </div>
+
+  <script>
+    // --- A) Country outline: filter Malaysia from world-atlas TopoJSON ---
+    const specCountry = {
+      $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+      width: 800, height: 520,
+      data: {
+        url: "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json",
+        format: { type: "topojson", feature: "countries" }
+      },
+      // Natural Earth / world-atlas uses ISO numeric IDs; Malaysia is 458.
+      transform: [{ filter: "datum.id == 458" }],
+      projection: {
+        type: "mercator",
+        center: [109.5, 4.5],   // long, lat roughly Malaysia's center
+        scale: 1800,            // zoom in
+        translate: [400, 260]   // center in the viewport
+      },
+      mark: { type: "geoshape", fill: "#e5f6ff", stroke: "#0369a1", strokeWidth: 1.2 },
+      encoding: {
+        tooltip: [{ field: "id", type: "nominal", title: "ISO numeric (NE)" }]
+      },
+      view: { stroke: null }
+    };
+
+    // --- B) States map using a Malaysia GeoJSON (state boundaries) ---
+    // You can swap the 'url' below with any ADM1 Geo/TopoJSON for Malaysia.
+    const specStates = {
+      $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+      width: 800, height: 700,
+      data: {
+        url: "malaysia.geojson",
+        format: { type: "geojson" }
+      },
+      projection: {
+        type: "mercator",
+        center: [109.5, 4.5],
+        scale: 1800,
+        translate: [400, 350]
+      },
+      layer: [
+        {
+          mark: { type: "geoshape", fill: "#f1f5f9", stroke: "#94a3b8", strokeWidth: 0.8 }
+        },
+        // Optional labels (state names). If your GeoJSON uses a different field, change "name".
+        {
+          mark: { type: "text", dy: 0, fontSize: 10, fontWeight: "bold" },
+          encoding: {
+            longitude: { field: "center[0]", type: "quantitative" },
+            latitude:  { field: "center[1]", type: "quantitative" },
+            text:      { field: "name", type: "nominal" },
+            opacity:   { value: 0.85 }
+          },
+          transform: [
+            // Compute approximate label centroids for each feature
+            { calculate: "geoCentroid('mercator', datum).coordinates", as: "center" }
+          ]
+        }
+      ],
+      encoding: {
+        tooltip: [{ field: "name", type: "nominal", title: "State" }]
+      },
+      view: { stroke: null }
+    };
+
+    (async () => {
+      await vegaEmbed("#map-country", specCountry, { actions: false });
+      await vegaEmbed("#map-states",  specStates,  { actions: false });
+    })();
+  </script>
+</body>
+</html>

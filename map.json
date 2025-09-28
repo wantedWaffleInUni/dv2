@@ -1,0 +1,26 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 600, "height": 700,
+    "data": {
+      "url": "data/malaysia_states.geojson",
+      "format": {"type": "geojson"}
+    },
+    "projection": {
+      "type": "mercator",
+      "center": [109.5, 4.5],
+      "scale": 1800,
+      "translate": [300, 350]
+    },
+    "mark": {"type": "geoshape", "stroke": "#fff", "strokeWidth": 0.7},
+    "encoding": {
+      "color": {"field": "value", "type": "quantitative", "scale": {"scheme": "teals"}},
+      "tooltip": [{"field": "state"}, {"field": "value"}]
+    },
+    "transform": [
+      {
+        "lookup": "properties.state_code",
+        "from": {"data": {"url": "data/my_state_metrics.csv"}, "key": "state_code", "fields": ["value","state"]}
+      }
+    ]
+  }
+  
