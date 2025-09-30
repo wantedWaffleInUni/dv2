@@ -14,7 +14,7 @@
         margin: 20px;
       }
       .wrap {
-        max-width: 1100px;
+        max-width: 1600px;
         margin: 0 auto;
       }
       h1 {
@@ -37,14 +37,15 @@
       <h1>Malaysia — Forest Reserve by State</h1>
       <p class="hint">
         Drag the year slider. Circle <b>color</b> and <b>size</b> reflect
-        <code>area</code> in your CSV.
+        <code>area</code> in the CSV.
       </p>
       <div class="card" id="vis"></div>
     </div>
 
     <script>
       /* Use a stable CDN for ADM1 borders (FeatureCollection) */
-      const STATES_GEOJSON_URL = "./geoBoundaries-MYS-ADM1.geojson";
+      const STATES_GEOJSON_URL =
+        "https://raw.githubusercontent.com/wantedWaffleInUni/dv2/main/geoBoundaries-MYS-ADM1.geojson";
 
       /* Inline centroids for states to avoid complex lookups on every frame.
    (longitude, latitude) are approximations — adjust if you want. */
@@ -78,23 +79,24 @@
       /* Vega-Lite spec */
       const spec = {
         $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-        width: 960,
-        height: 640,
+        width: 1400,
+        height: 850,
         padding: 5,
+        autosize: { type: "fit", contains: "padding" }, // responsive sizing
         params: [
           {
             name: "yr",
             value: 2015, // default slider value
             bind: {
               input: "range",
-              min: 1990,
-              max: 2030,
+              min: 2003,
+              max: 2021,
               step: 1,
               name: "Year: ",
             },
           },
         ],
-        projection: { type: "mercator", center: [109.5, 4.5], scale: 1600 },
+        projection: { type: "mercator", center: [109.5, 4.5], scale: 2000 },
 
         layer: [
           /* (1) Borders */
@@ -105,13 +107,11 @@
             },
             mark: {
               type: "geoshape",
-              fill: "#f8fafc",
-              stroke: "#94a3b8",
-              strokeWidth: 0.8,
+              fill: null,
+              stroke: "#111827",
+              strokeWidth: 1.2,
             },
-            view: { stroke: null },
           },
-
           /* (2) Bubbles: CSV -> normalize names -> filter year -> coerce area -> lookup coords -> plot */
           {
             data: { url: "forest_reserve_state.csv" },
