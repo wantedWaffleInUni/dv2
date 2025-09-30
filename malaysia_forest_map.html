@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Malaysia Forest Reserve by State — Vega-Lite</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Vega libs -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        margin: 20px;
+      }
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      h1 {
+        margin: 0 0 6px;
+      }
+      p.hint {
+        color: #475569;
+        margin: 6px 0 18px;
+      }
+      .card {
+        padding: 16px;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Malaysia — Forest Reserve by State</h1>
+      <p class="hint">
+        Drag the year slider. Circle <b>color</b> and <b>size</b> reflect
+        <code>area</code> in your CSV.
+      </p>
+      <div class="card" id="vis"></div>
+    </div>
+
+    <script>
+      /* Use a stable CDN for ADM1 borders (FeatureCollection) */
+      const STATES_GEOJSON_URL = "./geoBoundaries-MYS-ADM1.geojson";
+
+      /* Inline centroids for states to avoid complex lookups on every frame.
+   (longitude, latitude) are approximations — adjust if you want. */
+      const STATE_CENTROIDS = [
+        { state_norm: "Johor", lon: 103.5, lat: 1.8 },
+        { state_norm: "Kedah", lon: 100.5, lat: 6.2 },
+        { state_norm: "Kelantan", lon: 102.1, lat: 5.3 },
+        { state_norm: "Melaka", lon: 102.3, lat: 2.25 }, // Malacca
+        { state_norm: "Negeri Sembilan", lon: 102.1, lat: 2.7 },
+        { state_norm: "Pahang", lon: 102.5, lat: 3.8 },
+        { state_norm: "Perak", lon: 101.0, lat: 4.8 },
+        { state_norm: "Perlis", lon: 100.2, lat: 6.6 },
+        { state_norm: "Pulau Pinang", lon: 100.33, lat: 5.33 }, // Penang
+        { state_norm: "Sabah", lon: 116.7, lat: 5.8 },
+        { state_norm: "Sarawak", lon: 113.5, lat: 2.5 },
+        { state_norm: "Selangor", lon: 101.5, lat: 3.2 },
+        { state_norm: "Terengganu", lon: 103.1, lat: 5.3 },
+        { state_norm: "W.P. Kuala Lumpur", lon: 101.7, lat: 3.14 },
+        { state_norm: "W.P. Putrajaya", lon: 101.7, lat: 2.93 },
+        { state_norm: "W.P. Labuan", lon: 115.25, lat: 5.3 },
+      ];
+
+      /* Expression to normalize various state name variants from the GeoJSON */
+      const nameFixExpr =
+        "(datum.properties && (datum.properties.shapeName || datum.properties.name || datum.properties.NAME_1)) || datum.name || ''";
+      const nameNormExpr =
+        "replace(replace(replace(replace(" +
+        nameFixExpr +
+        ", 'N. Sembilan', 'Negeri Sembilan'), 'Malacca', 'Melaka'), 'Penang', 'Pulau Pinang'), 'Kuala Lumpur', 'W.P. Kuala Lumpur')";
+
+      /* Vega-Lite spec */
+      const spec = {
+        $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+        width: 960,
+        height: 640,
+        padding: 5,
+        params: [
+          {
+            name: "yr",
+            value: 2015, // default slider value
+            bind: {
+              input: "range",
+              min: 1990,
+              max: 2030,
+              step: 1,
+              name: "Year: ",
+            },
+          },
+        ],
+        projection: { type: "mercator", center: [109.5, 4.5], scale: 1600 },
+
+        layer: [
+          /* (1) Borders */
+          {
+            data: {
+              url: STATES_GEOJSON_URL,
+              format: { type: "json", property: "features" },
+            },
+            mark: {
+              type: "geoshape",
+              fill: "#f8fafc",
+              stroke: "#94a3b8",
+              strokeWidth: 0.8,
+            },
+            view: { stroke: null },
+          },
+
+          /* (2) Bubbles: CSV -> normalize names -> filter year -> coerce area -> lookup coords -> plot */
+          {
+            data: { url: "forest_reserve_state.csv" },
+            transform: [
+              /* normalize CSV state names to match our centroid table */
+              {
+                calculate:
+                  "replace(replace(replace(replace(replace(replace(replace(toString(datum.state), 'Malacca','Melaka'),'Penang','Pulau Pinang'),'Kuala Lumpur','W.P. Kuala Lumpur'),'Labuan','W.P. Labuan'),'Putrajaya','W.P. Putrajaya'),'N. Sembilan','Negeri Sembilan'),'Kuala Lumpur Federal Territory','W.P. Kuala Lumpur')",
+                as: "state_norm",
+              },
+              /* extract year robustly (works for 'YYYY-MM-DD' or just 'YYYY') */
+              {
+                calculate: "toNumber(slice(toString(datum.date),0,4))",
+                as: "year",
+              },
+              { filter: "isFinite(datum.year) && datum.year == yr" },
+
+              /* coerce area to number and keep only finite values */
+              { calculate: "toNumber(datum.area)", as: "area_num" },
+              { filter: "isFinite(datum.area_num)" },
+
+              /* join coordinates from inline centroids */
+              {
+                lookup: "state_norm",
+                from: {
+                  data: { values: STATE_CENTROIDS },
+                  key: "state_norm",
+                  fields: ["lon", "lat"],
+                },
+              },
+              { filter: "isFinite(datum.lon) && isFinite(datum.lat)" },
+            ],
+            mark: {
+              type: "circle",
+              stroke: "#0f172a",
+              strokeWidth: 0.5,
+              opacity: 0.9,
+            },
+            encoding: {
+              longitude: { field: "lon", type: "quantitative" },
+              latitude: { field: "lat", type: "quantitative" },
+
+              color: {
+                field: "area_num",
+                type: "quantitative",
+                scale: { scheme: "greens" },
+                legend: { title: "Area (ha)" },
+              },
+              size: {
+                field: "area_num",
+                type: "quantitative",
+                scale: { type: "sqrt", range: [10, 1200] },
+                legend: { title: "Area (ha)" },
+              },
+              tooltip: [
+                { field: "state_norm", title: "State" },
+                { field: "year", type: "quantitative" },
+                {
+                  field: "area_num",
+                  type: "quantitative",
+                  title: "Area (ha)",
+                  format: ",",
+                },
+              ],
+            },
+          },
+
+          /* (3) Optional faint labels from GeoJSON (for context) */
+          {
+            data: {
+              url: STATES_GEOJSON_URL,
+              format: { type: "json", property: "features" },
+            },
+            transform: [
+              { calculate: nameNormExpr, as: "state_norm" },
+              /* simple label positions: you can skip computing centroids here and reuse centroid table */
+              {
+                lookup: "state_norm",
+                from: {
+                  data: { values: STATE_CENTROIDS },
+                  key: "state_norm",
+                  fields: ["lon", "lat"],
+                },
+              },
+              { filter: "isFinite(datum.lon) && isFinite(datum.lat)" },
+            ],
+            mark: { type: "text", dy: -8, opacity: 0.65, fontSize: 10 },
+            encoding: {
+              longitude: { field: "lon", type: "quantitative" },
+              latitude: { field: "lat", type: "quantitative" },
+              text: { field: "state_norm" },
+            },
+          },
+        ],
+
+        resolve: { scale: { size: "independent", color: "independent" } },
+      };
+
+      vegaEmbed("#vis", spec, {
+        actions: { export: true, source: false, editor: true },
+      });
+    </script>
+  </body>
+</html>
