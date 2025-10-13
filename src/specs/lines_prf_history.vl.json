@@ -1,0 +1,13 @@
+{
+  "$schema":"https://vega.github.io/schema/vega-lite/v5.json",
+  "width":"container",
+  "height":260,
+  "mark":{"type":"line", "interpolate":"monotone"},
+  "encoding":{
+    "x":{"field":"year","type":"temporal","title":"Year"},
+    "y":{"field":"prf_ha","type":"quantitative","title":"PRF (ha)"},
+    "color":{"field":"region","type":"nominal","legend":{"title":"Region"}}
+  },
+  "data":{"name":"history"}
+}
+

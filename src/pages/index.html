@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>MY Forest Conservation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <link rel="stylesheet" href="/src/pages/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Malaysia's Forests — Now, Trends & Risks</h1>
+    <small id="last-updated"></small>
+  </header>
+
+  <main id="app">
+    <section id="kpis" class="grid kpis"></section>
+
+    <section id="overview">
+      <h2>Where are Permanent Reserved Forests?</h2>
+      <div id="map-prf" class="chart"></div>
+      <div id="state-rank" class="table"></div>
+    </section>
+
+    <section id="trends">
+      <h2>How has coverage changed?</h2>
+      <div id="line-prf-history" class="chart"></div>
+      <div id="bars-loss" class="chart"></div>
+    </section>
+  </main>
+
+  <script type="module" src="/src/pages/app.js"></script>
+</body>
+</html>
+

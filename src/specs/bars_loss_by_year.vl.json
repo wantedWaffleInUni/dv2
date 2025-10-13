@@ -1,0 +1,13 @@
+{
+  "$schema":"https://vega.github.io/schema/vega-lite/v5.json",
+  "width":"container",
+  "height":260,
+  "mark":"bar",
+  "encoding":{
+    "x":{"field":"year","type":"temporal","title":"Year"},
+    "y":{"field":"loss_ha","type":"quantitative","title":"Tree cover loss (ha)"},
+    "color":{"value":"#9ca3af"}
+  },
+  "data":{"name":"loss"}
+}
+
