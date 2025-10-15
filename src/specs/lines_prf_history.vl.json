@@ -1,13 +1,55 @@
 {
-  "$schema":"https://vega.github.io/schema/vega-lite/v5.json",
-  "width":"container",
-  "height":260,
-  "mark":{"type":"line", "interpolate":"monotone"},
-  "encoding":{
-    "x":{"field":"year","type":"temporal","title":"Year"},
-    "y":{"field":"prf_ha","type":"quantitative","title":"PRF (ha)"},
-    "color":{"field":"region","type":"nominal","legend":{"title":"Region"}}
-  },
-  "data":{"name":"history"}
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 260,
+  "title": "Trend — Selected state (or Malaysia total) with year marker",
+  "data": { "name": "history" },
+  "params": [
+    { "name": "sel_state", "value": "All" },
+    { "name": "yr", "value": 2021, "bind": { "input": "range", "min": 2003, "max": 2021, "step": 1 } }
+  ],
+  "transform": [
+    { "calculate": "year(datum.year)", "as": "year_num" },
+    { "calculate": "toNumber(datum.prf_ha)", "as": "area_num" },
+    { "filter": "isFinite(datum.year_num) && isFinite(datum.area_num)" },
+    { "filter": "sel_state == 'All' || datum.region == sel_state" },
+    { "aggregate": [ { "op": "sum", "field": "area_num", "as": "area_sum" } ], "groupby": ["year_num"] }
+  ],
+  "layer": [
+    {
+      "mark": { "type": "line" },
+      "encoding": {
+        "x": {
+          "field": "year_num",
+          "type": "quantitative",
+          "axis": { "title": null, "tickCount": 10, "format": "d" },
+          "sort": "ascending"
+        },
+        "y": { "field": "area_sum", "type": "quantitative", "title": "Area (ha)" },
+        "tooltip": [
+          { "field": "year_num", "type": "quantitative", "title": "Year", "format": "d" },
+          { "field": "area_sum", "type": "quantitative", "title": "Area (ha)", "format": "," }
+        ]
+      }
+    },
+    {
+      "transform": [ { "filter": "datum.year_num == yr" } ],
+      "mark": { "type": "rule", "color": "#9a3412", "strokeDash": [6, 4] },
+      "encoding": { "x": { "field": "year_num", "type": "quantitative" } }
+    },
+    {
+      "transform": [
+        { "filter": "datum.year_num == yr" },
+        { "calculate": "'Year '+datum.year_num+': '+format(datum.area_sum, ',')+' ha'", "as": "label" }
+      ],
+      "mark": { "type": "text", "align": "left", "dx": 6, "dy": -6, "color": "#9a3412" },
+      "encoding": {
+        "x": { "field": "year_num", "type": "quantitative" },
+        "y": { "field": "area_sum", "type": "quantitative" },
+        "text": { "field": "label" }
+      }
+    }
+  ]
 }
+
 

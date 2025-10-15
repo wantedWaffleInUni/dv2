@@ -1,0 +1,305 @@
+State ,Year,Area
+Malaysia,2000,4837499
+Malaysia,2001,4840431
+Malaysia,2002,4701858
+Malaysia,2003,13096197
+Malaysia,2004,13032991
+Malaysia,2005,13014350
+Malaysia,2006,13007668
+Malaysia,2007,12993397
+Malaysia,2008,13093975
+Malaysia,2009,13119072
+Malaysia,2010,14526332
+Malaysia,2011,14519081
+Malaysia,2012,12840026
+Malaysia,2013,12919086
+Malaysia,2014,12901681
+Malaysia,2015,12788296
+Malaysia,2016,12782366
+Malaysia,2017,12626800
+Malaysia,2018,12553152
+Peninsular Malaysia ,2000,4837499
+Peninsular Malaysia ,2001,4840431
+Peninsular Malaysia ,2002,4701858
+Peninsular Malaysia ,2003,4696211
+Peninsular Malaysia ,2004,4683505
+Peninsular Malaysia ,2005,4711264
+Peninsular Malaysia ,2006,4726182
+Peninsular Malaysia ,2007,4695630
+Peninsular Malaysia ,2008,4807565
+Peninsular Malaysia ,2009,4930569
+Peninsular Malaysia ,2010,4919685
+Peninsular Malaysia ,2011,4912434
+Peninsular Malaysia ,2012,4893613
+Peninsular Malaysia ,2013,4936290
+Peninsular Malaysia ,2014,4933787
+Peninsular Malaysia ,2015,4916748
+Peninsular Malaysia ,2016,4924153
+Peninsular Malaysia ,2017,4811226
+Peninsular Malaysia ,2018,4803350
+Johor,2000,358096
+Johor,2001,358096
+Johor,2002,358096
+Johor,2003,356922
+Johor,2004,355772
+Johor,2005,375864
+Johor,2006,391499
+Johor,2007,391499
+Johor,2008,441251
+Johor,2009,438751
+Johor,2010,432678
+Johor,2011,432208
+Johor,2012,432208
+Johor,2013,432209
+Johor,2014,432184
+Johor,2015,414637
+Johor,2016,414628
+Johor,2017,332749
+Johor,2018,332749
+Kedah,2000,346516
+Kedah,2001,346343
+Kedah,2002,344449
+Kedah,2003,344530
+Kedah,2004,342613
+Kedah,2005,342613
+Kedah,2006,342613
+Kedah,2007,342613
+Kedah,2008,342613
+Kedah,2009,342613
+Kedah,2010,342613
+Kedah,2011,342613
+Kedah,2012,325463
+Kedah,2013,341976
+Kedah,2014,341976
+Kedah,2015,341976
+Kedah,2016,341976
+Kedah,2017,341976
+Kedah,2018,341976
+Kelantan,2000,629687
+Kelantan,2001,629687
+Kelantan,2002,629687
+Kelantan,2003,629687
+Kelantan,2004,629367
+Kelantan,2005,629687
+Kelantan,2006,629687
+Kelantan,2007,629687
+Kelantan,2008,623849
+Kelantan,2009,623849
+Kelantan,2010,623849
+Kelantan,2011,623849
+Kelantan,2012,623849
+Kelantan,2013,623849
+Kelantan,2014,623849
+Kelantan,2015,623849
+Kelantan,2016,635437
+Kelantan,2017,613275
+Kelantan,2018,613275
+Melaka,2000,5332
+Melaka,2001,5462
+Melaka,2002,5462
+Melaka,2003,5468
+Melaka,2004,5185
+Melaka,2005,5185
+Melaka,2006,5159
+Melaka,2007,5079
+Melaka,2008,5080
+Melaka,2009,5080
+Melaka,2010,5079
+Melaka,2011,4818
+Melaka,2012,5151
+Melaka,2013,5151
+Melaka,2014,5093
+Melaka,2015,5104
+Melaka,2016,5137
+Melaka,2017,5138
+Melaka,2018,5199
+Negeri Sembilan,2000,168721
+Negeri Sembilan,2001,168001
+Negeri Sembilan,2002,167801
+Negeri Sembilan,2003,165639
+Negeri Sembilan,2004,162075
+Negeri Sembilan,2005,160151
+Negeri Sembilan,2006,156275
+Negeri Sembilan,2007,154185
+Negeri Sembilan,2008,155909
+Negeri Sembilan,2009,157058
+Negeri Sembilan,2010,153837
+Negeri Sembilan,2011,153459
+Negeri Sembilan,2012,154578
+Negeri Sembilan,2013,154676
+Negeri Sembilan,2014,155825
+Negeri Sembilan,2015,155708
+Negeri Sembilan,2016,155650
+Negeri Sembilan,2017,155650
+Negeri Sembilan,2018,155549
+Pahang,2000,1517594
+Pahang,2001,1525295
+Pahang,2002,1525012
+Pahang,2003,1524132
+Pahang,2004,1524132
+Pahang,2005,1519501
+Pahang,2006,1519501
+Pahang,2007,1484099
+Pahang,2008,1562496
+Pahang,2009,1562902
+Pahang,2010,1562902
+Pahang,2011,1562902
+Pahang,2012,1562902
+Pahang,2013,1562902
+Pahang,2014,1562900
+Pahang,2015,1563993
+Pahang,2016,1559913
+Pahang,2017,1558898
+Pahang,2018,1559385
+Perak,2000,1001705
+Perak,2001,1001705
+Perak,2002,882612
+Perak,2003,884205
+Perak,2004,884205
+Perak,2005,884205
+Perak,2006,884205
+Perak,2007,884205
+Perak,2008,873936
+Perak,2009,991436
+Perak,2010,987511
+Perak,2011,986262
+Perak,2012,983136
+Perak,2013,1003616
+Perak,2014,999967
+Perak,2015,999488
+Perak,2016,999473
+Perak,2017,995216
+Perak,2018,988914
+Perlis,2000,10408
+Perlis,2001,10409
+Perlis,2002,10718
+Perlis,2003,10718
+Perlis,2004,10718
+Perlis,2005,10718
+Perlis,2006,10718
+Perlis,2007,10718
+Perlis,2008,10586
+Perlis,2009,10808
+Perlis,2010,10808
+Perlis,2011,10799
+Perlis,2012,10799
+Perlis,2013,10799
+Perlis,2014,10799
+Perlis,2015,10799
+Perlis,2016,10799
+Perlis,2017,10615
+Perlis,2018,10615
+Pulau Pinang,2000,6406
+Pulau Pinang,2001,6406
+Pulau Pinang,2002,5139
+Pulau Pinang,2003,5139
+Pulau Pinang,2004,5434
+Pulau Pinang,2005,5434
+Pulau Pinang,2006,5434
+Pulau Pinang,2007,6098
+Pulau Pinang,2008,6098
+Pulau Pinang,2009,6098
+Pulau Pinang,2010,6098
+Pulau Pinang,2011,6098
+Pulau Pinang,2012,6098
+Pulau Pinang,2013,6060
+Pulau Pinang,2014,6060
+Pulau Pinang,2015,6060
+Pulau Pinang,2016,6060
+Pulau Pinang,2017,5101
+Pulau Pinang,2018,5101
+Selangor,2000,235312
+Selangor,2001,234644
+Selangor,2002,234154
+Selangor,2003,233781
+Selangor,2004,233781
+Selangor,2005,239782
+Selangor,2006,235212
+Selangor,2007,241568
+Selangor,2008,241568
+Selangor,2009,247793
+Selangor,2010,250129
+Selangor,2011,250129
+Selangor,2012,250129
+Selangor,2013,250129
+Selangor,2014,250129
+Selangor,2015,250129
+Selangor,2016,250129
+Selangor,2017,250129
+Selangor,2018,250210
+Terengganu,2000,557661
+Terengganu,2001,554322
+Terengganu,2002,538667
+Terengganu,2003,535929
+Terengganu,2004,530162
+Terengganu,2005,538063
+Terengganu,2006,545818
+Terengganu,2007,545818
+Terengganu,2008,544118
+Terengganu,2009,544118
+Terengganu,2010,544118
+Terengganu,2011,539234
+Terengganu,2012,539232
+Terengganu,2013,544855
+Terengganu,2014,544937
+Terengganu,2015,544937
+Terengganu,2016,544883
+Terengganu,2017,542411
+Terengganu,2018,540309
+W.P.Kuala Lumpur,2000,61
+W.P.Kuala Lumpur,2001,61
+W.P.Kuala Lumpur,2002,61
+W.P.Kuala Lumpur,2003,61
+W.P.Kuala Lumpur,2004,61
+W.P.Kuala Lumpur,2005,61
+W.P.Kuala Lumpur,2006,61
+W.P.Kuala Lumpur,2007,61
+W.P.Kuala Lumpur,2008,61
+W.P.Kuala Lumpur,2009,63
+W.P.Kuala Lumpur,2010,63
+W.P.Kuala Lumpur,2011,63
+W.P.Kuala Lumpur,2012,68
+W.P.Kuala Lumpur,2013,68
+W.P.Kuala Lumpur,2014,68
+W.P.Kuala Lumpur,2015,68
+W.P.Kuala Lumpur,2016,68
+W.P.Kuala Lumpur,2017,68
+W.P.Kuala Lumpur,2018,68
+Sabah,2000,0
+Sabah,2001,0
+Sabah,2002,0
+Sabah,2003,3563186
+Sabah,2004,3543186
+Sabah,2005,3523186
+Sabah,2006,3503186
+Sabah,2007,3604867
+Sabah,2008,3604867
+Sabah,2009,3604894
+Sabah,2010,3606647
+Sabah,2011,3606647
+Sabah,2012,3609249
+Sabah,2013,3614730
+Sabah,2014,3615066
+Sabah,2015,3551247
+Sabah,2016,3540274
+Sabah,2017,3540749
+Sabah,2018,3540749
+Sarawak,2000,0
+Sarawak,2001,0
+Sarawak,2002,0
+Sarawak,2003,4836800
+Sarawak,2004,4806300
+Sarawak,2005,4779900
+Sarawak,2006,4778300
+Sarawak,2007,4692900
+Sarawak,2008,4681543
+Sarawak,2009,4583609
+Sarawak,2010,6000000
+Sarawak,2011,6000000
+Sarawak,2012,4337164
+Sarawak,2013,4368066
+Sarawak,2014,4352828
+Sarawak,2015,4320302
+Sarawak,2016,4317939
+Sarawak,2017,4274825
+Sarawak,2018,4209053
