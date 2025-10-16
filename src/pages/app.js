@@ -12,16 +12,37 @@ async function boot(){
   const shapes = await loadJSON("/public/data/mys_states.geojson");
   const history = await loadCSV("/public/data/prf_state_history.csv");
   const loss = await loadCSV("/public/data/gfw_loss_state.csv");
+  const aq = await loadCSV("/public/data/air_quality_monthly.csv");
+
+  // Build a map: shapeName -> shapeISO from the GeoJSON
+  // app.js (after loading shapes & prf)
+  const isoByName = Object.fromEntries(
+    (shapes.features || []).map(f => [f.properties?.shapeName, f.properties?.shapeISO])
+  );
+  const aliases = {
+    "W.P. Kuala Lumpur": "Kuala Lumpur",
+    "W.P. Labuan": "Labuan",
+    "W.P. Putrajaya": "Putrajaya",
+  };
+  const prfWithISO = prf.map(r => ({
+    ...r,
+    shapeISO: isoByName[aliases[r.state] || r.state] || null
+  }));
+
+
+  console.log('geo feature sample', shapes.features?.[0]?.properties);
+  console.log('prf sample', prfWithISO[0]);
+
 
   // KPIs (naive placeholders)
-  const totalPRF = prf.reduce((s,r)=>s+Number(r.prf_ha||0),0);
+  const totalPRF = prfWithISO.reduce((s,r)=>s+Number(r.prf_ha||0),0);
   const kpiRoot = document.getElementById("kpis");
   [ {label:"Total PRF (ha)", value: formatNum(Math.round(totalPRF))},
-    {label:"States", value: prf.length}
+    {label:"States", value: prfWithISO.length}
   ].map(kpiCard).forEach(el=>kpiRoot.appendChild(el));
 
   // Ranks table
-  const rows = prf.map(r=>({
+  const rows = prfWithISO.map(r=>({
     state: r.state,
     prf_ha: formatNum(r.prf_ha),
     prf_pct: (Number(r.prf_pct)||0).toFixed(1)+"%"
@@ -34,19 +55,24 @@ async function boot(){
 
   // Render charts
   const mapSpec = await fetch("/src/specs/map_prf_overview.vl.json").then(r=>r.json());
-  mapSpec.data = [
-    { name:"states", values: shapes },
-    { name:"prf", values: prf }
-  ];
+  mapSpec.datasets = {
+    states: shapes,
+    prf: prfWithISO
+  };
   await renderVega("#map-prf", mapSpec);
 
   const lineSpec = await fetch("/src/specs/lines_prf_history.vl.json").then(r=>r.json());
-  lineSpec.data = [{ name:"history", values: history }];
+  lineSpec.datasets = { history };
   await renderVega("#line-prf-history", lineSpec);
 
   const barsSpec = await fetch("/src/specs/bars_loss_by_year.vl.json").then(r=>r.json());
-  barsSpec.data = [{ name:"loss", values: loss }];
+  barsSpec.datasets = { loss };
   await renderVega("#bars-loss", barsSpec);
+
+  // Air quality small multiples
+  const aqSpec = await fetch("/src/specs/smallmult_air_quality.vl.json").then(r=>r.json());
+  aqSpec.datasets = { aq };
+  await renderVega("#smallmult-air", aqSpec);
 }
 boot();
 

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 400,
+  
+  "params": [
+    {
+      "name": "pollutant",
+      "value": "pm25",
+      "bind": {"input":"radio", "name":"Pollutant: ", "options":["pm25","pm10"], "labels":["PM₂.₅","PM₁₀"]}
+    }
+  ],
+  
+  "data": {"name": "aq"},
+  
+  "transform": [
+    {"calculate":"toNumber(datum.year)", "as":"y"},
+    {"calculate":"toNumber(datum.month)", "as":"m"},
+    {
+      "calculate": "pollutant=='pm25' ? toNumber(datum.pm25) : toNumber(datum.pm10)",
+      "as": "value"
+    },
+    {"filter":"isFinite(datum.value) && isFinite(datum.m) && datum.m>=1 && datum.m<=12"},
+    {
+      "calculate": "datum.y + (datum.m - 1) / 12",
+      "as": "date_num"
+    }
+  ],
+  
+  "layer": [
+    {
+      "mark": {"type":"line", "point": true, "strokeWidth": 2},
+      "encoding": {
+        "x": {
+          "field": "date_num",
+          "type": "quantitative",
+          "title": "Year",
+          "scale": {"domain": [2017, 2023]}
+        },
+        "y": {
+          "field": "value", 
+          "type": "quantitative", 
+          "title": "Concentration (µg/m³)"
+        },
+        "color": {
+          "value": "#3b82f6"
+        },
+        "tooltip": [
+          {"field":"y", "title":"Year"},
+          {"field":"m", "title":"Month"},
+          {"field":"value", "title":"Concentration (µg/m³)", "format":".1f"}
+        ]
+      }
+    },
+    {
+      "mark": {"type":"rule", "strokeWidth":1, "strokeDash":[4,3], "opacity": 0.6},
+      "transform": [
+        {"aggregate":[{"op":"mean","field":"value","as":"avg"}], "groupby":["y"]}
+      ],
+      "encoding": {
+        "x": {"field":"date_num", "type":"quantitative"},
+        "y": {"field":"avg", "type":"quantitative"},
+        "color": {"value":"#6b7280"}
+      }
+    }
+  ],
+  
+  "config": {
+    "view": {"stroke": null},
+    "axis": {"labelFontSize": 12, "titleFontSize": 14}
+  }
+}
+  

@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <title>MY Forest Conservation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.30.0/build/vega.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.21.0/build/vega-lite.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.26.0/build/vega-embed.min.js"></script>
   <link rel="stylesheet" href="/src/pages/styles.css" />
 </head>
 <body>
@@ -28,6 +28,11 @@
       <h2>How has coverage changed?</h2>
       <div id="line-prf-history" class="chart"></div>
       <div id="bars-loss" class="chart"></div>
+    </section>
+
+    <section id="air">
+      <h2>Air Quality Trends</h2>
+      <div id="smallmult-air" class="chart"></div>
     </section>
   </main>
 

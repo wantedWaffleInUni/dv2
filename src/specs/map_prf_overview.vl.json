@@ -2,37 +2,34 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": "container",
   "height": 420,
-  "projection": {
-    "type": "mercator",
-    "fit": { "data": { "name": "states" } }
-  },
+  "projection": { "type": "mercator", "fit": { "data": { "name": "states" } } },
   "layer": [
     {
       "data": { "name": "states" },
-      "mark": { "type": "geoshape", "stroke": "#ffffff", "strokeWidth": 0.6 },
+      "mark": { "type": "geoshape", "fill": "#d1d5db", "stroke": "#374151", "strokeWidth": 0.6 },
       "encoding": {
-        "tooltip": [
-          { "field": "properties.shapeName", "type": "nominal", "title": "State" }
-        ]
+        "tooltip": [{"field": "properties.shapeName", "type": "nominal", "title": "State"}]
       }
     },
     {
       "data": { "name": "states" },
       "transform": [
-        { "calculate": "slice(datum.properties.shapeISO, 3)", "as": "state_code" },
-        { "lookup": "state_code", "from": { "data": { "name": "prf" }, "key": "state_code", "fields": ["prf_pct", "prf_ha", "state"] } }
+        { "filter": "isValid(datum.properties) && isValid(datum.properties.shapeISO)" },
+        {
+          "lookup": "properties.shapeISO",
+          "from": { "data": { "name": "prf" }, "key": "shapeISO",
+            "fields": ["prf_pct","prf_ha","state"] }
+        }
       ],
       "mark": { "type": "geoshape" },
       "encoding": {
         "color": {
-          "field": "prf_pct",
-          "type": "quantitative",
+          "field": "prf_pct", "type": "quantitative",
           "title": "% of land in PRF",
-          "scale": { "scheme": "greens", "type": "quantize", "domain": [0, 60] },
-          "legend": { "orient": "right" }
+          "scale": { "scheme": "greens", "type": "quantize", "domain": [0,60] }
         },
         "tooltip": [
-          { "field": "state", "type": "nominal", "title": "State" },
+          { "field": "properties.shapeName", "type": "nominal", "title": "State" },
           { "field": "prf_ha", "type": "quantitative", "title": "PRF (ha)" },
           { "field": "prf_pct", "type": "quantitative", "title": "PRF %" }
         ]
