@@ -5,14 +5,14 @@ import { loadCSV, loadJSON } from "../utils/fetcher.js";
 import { joinByKey, pct, formatNum } from "../utils/transforms.js";
 
 async function boot(){
-  const meta = await fetch("/config/meta.json").then(r=>r.json());
+  const meta = await fetch("./config/meta.json").then(r=>r.json());
   document.getElementById("last-updated").textContent = `Last updated: ${meta.lastUpdated}`;
 
-  const prf = await loadCSV("/public/data/prf_state_latest.csv");
-  const shapes = await loadJSON("/public/data/mys_states.geojson");
-  const history = await loadCSV("/public/data/prf_state_history.csv");
-  const loss = await loadCSV("/public/data/gfw_loss_state.csv");
-  const aq = await loadCSV("/public/data/air_quality_monthly.csv");
+  const prf = await loadCSV("./public/data/prf_state_latest.csv");
+  const shapes = await loadJSON("./public/data/mys_states.geojson");
+  const history = await loadCSV("./public/data/prf_state_history.csv");
+  const loss = await loadCSV("./public/data/gfw_loss_state.csv");
+  const aq = await loadCSV("./public/data/air_quality_monthly.csv");
 
   // Build a map: shapeName -> shapeISO from the GeoJSON
   // app.js (after loading shapes & prf)
@@ -55,23 +55,23 @@ async function boot(){
   ]);
 
   // Render charts
-  const mapSpec = await fetch("/src/specs/map_prf_overview.vl.json").then(r=>r.json());
+  const mapSpec = await fetch("./src/specs/map_prf_overview.vl.json").then(r=>r.json());
   mapSpec.datasets = {
     states: shapes.features || [],
     prf: prfWithISO
   };
   await renderVega("#map-prf", mapSpec);
 
-  const lineSpec = await fetch("/src/specs/lines_prf_history.vl.json").then(r=>r.json());
+  const lineSpec = await fetch("./src/specs/lines_prf_history.vl.json").then(r=>r.json());
   lineSpec.datasets = { history };
   await renderVega("#line-prf-history", lineSpec);
 
-  const barsSpec = await fetch("/src/specs/bars_loss_by_year.vl.json").then(r=>r.json());
+  const barsSpec = await fetch("./src/specs/bars_loss_by_year.vl.json").then(r=>r.json());
   barsSpec.datasets = { loss };
   await renderVega("#bars-loss", barsSpec);
 
   // Air quality small multiples
-  const aqSpec = await fetch("/src/specs/smallmult_air_quality.vl.json").then(r=>r.json());
+  const aqSpec = await fetch("./src/specs/smallmult_air_quality.vl.json").then(r=>r.json());
   aqSpec.datasets = { aq };
   await renderVega("#smallmult-air", aqSpec);
 }

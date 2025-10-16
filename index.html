@@ -1,218 +1,95 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Malaysia Forest Reserve by State — Vega-Lite</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Vega libs -->
-    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-    <style>
-      body {
-        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-        margin: 20px;
-      }
-      .wrap {
-        max-width: 1600px;
-        margin: 0 auto;
-      }
-      h1 {
-        margin: 0 0 6px;
-      }
-      p.hint {
-        color: #475569;
-        margin: 6px 0 18px;
-      }
-      .card {
-        padding: 16px;
-        border: 1px solid #e5e7eb;
-        border-radius: 12px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-      }
-    </style>
-  </head>
-  <body>
-    <div class="wrap">
-      <h1>Malaysia — Forest Reserve by State</h1>
-      <p class="hint">
-        Drag the year slider. Circle <b>color</b> and <b>size</b> reflect
-        <code>area</code> in the CSV.
-      </p>
-      <div class="card" id="vis"></div>
-    </div>
+<head>
+  <meta charset="utf-8" />
+  <title>MY Forest Conservation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.30.0/build/vega.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.21.0/build/vega-lite.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.26.0/build/vega-embed.min.js"></script>
+  <link rel="stylesheet" href="./src/pages/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Malaysia's Forests — Now, Trends & Risks</h1>
+    <small id="last-updated"></small>
+  </header>
 
-    <script>
-      /* Use a stable CDN for ADM1 borders (FeatureCollection) */
-      const STATES_GEOJSON_URL =
-        "https://raw.githubusercontent.com/wantedWaffleInUni/dv2/main/geoBoundaries-MYS-ADM1.geojson";
+  <main id="app">
+    <section id="kpis" class="grid kpis"></section>
 
-      /* Inline centroids for states to avoid complex lookups on every frame.
-   (longitude, latitude) are approximations — adjust if you want. */
-      const STATE_CENTROIDS = [
-        { state_norm: "Johor", lon: 103.5, lat: 1.8 },
-        { state_norm: "Kedah", lon: 100.5, lat: 6.2 },
-        { state_norm: "Kelantan", lon: 102.1, lat: 5.3 },
-        { state_norm: "Melaka", lon: 102.3, lat: 2.25 }, // Malacca
-        { state_norm: "Negeri Sembilan", lon: 102.1, lat: 2.7 },
-        { state_norm: "Pahang", lon: 102.5, lat: 3.8 },
-        { state_norm: "Perak", lon: 101.0, lat: 4.8 },
-        { state_norm: "Perlis", lon: 100.2, lat: 6.6 },
-        { state_norm: "Pulau Pinang", lon: 100.33, lat: 5.33 }, // Penang
-        { state_norm: "Sabah", lon: 116.7, lat: 5.8 },
-        { state_norm: "Sarawak", lon: 113.5, lat: 2.5 },
-        { state_norm: "Selangor", lon: 101.5, lat: 3.2 },
-        { state_norm: "Terengganu", lon: 103.1, lat: 5.3 },
-        { state_norm: "W.P. Kuala Lumpur", lon: 101.7, lat: 3.14 },
-        { state_norm: "W.P. Putrajaya", lon: 101.7, lat: 2.93 },
-        { state_norm: "W.P. Labuan", lon: 115.25, lat: 5.3 },
-      ];
+    <section id="overview">
+      <h2>Where are Permanent Reserved Forests?</h2>
+      <div class="storytelling">
+        <h3>🌿 Malaysia's Forest Heritage</h3>
+        <p>Malaysia's forests are among the world's most biodiverse, housing over 15,000 species of flowering plants and countless wildlife. These ancient ecosystems, some dating back 130 million years, serve as vital carbon sinks and provide essential ecosystem services for millions of people.</p>
+        <p><strong>Did you know?</strong> Malaysia's forests store approximately 2.3 billion tonnes of carbon, equivalent to 8.5 billion tonnes of CO₂. The Permanent Reserved Forests (PRFs) you see on this map represent Malaysia's commitment to sustainable forest management, covering over 5.8 million hectares of protected land.</p>
+      </div>
+      <div id="map-prf" class="chart"></div>
+      <div class="overview-content">
+        <div id="state-rank" class="table table-half"></div>
+        <div class="malaysia-flag-section">
+          <div class="flag-container">
+            <img src="./src/components/Flag_of_Malaysia.svg" alt="Malaysian Flag" class="malaysia-flag">
+            <div class="slogan">Cinta Tanah Airku</div>
+            <div class="poem">
+              <div class="poem-content">
+                <div class="poem-malay">
+                  <p>"Hutan hijau nan permai,<br>
+                  Menjaga bumi yang tercinta,<br>
+                  Alam lestari untuk generasi,<br>
+                  Warisan mulia yang abadi."</p>
+                </div>
+                <div class="poem-english">
+                  <p>"Beautiful green forests,<br>
+                  Protecting our beloved earth,<br>
+                  Sustainable nature for generations,<br>
+                  A noble heritage that endures."</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      /* Expression to normalize various state name variants from the GeoJSON */
-      const nameFixExpr =
-        "(datum.properties && (datum.properties.shapeName || datum.properties.name || datum.properties.NAME_1)) || datum.name || ''";
-      const nameNormExpr =
-        "replace(replace(replace(replace(" +
-        nameFixExpr +
-        ", 'N. Sembilan', 'Negeri Sembilan'), 'Malacca', 'Melaka'), 'Penang', 'Pulau Pinang'), 'Kuala Lumpur', 'W.P. Kuala Lumpur')";
+    <section id="trends">
+      <h2>How has coverage changed?</h2>
+      <div class="storytelling">
+        <h3>📈 The Forest Coverage Journey</h3>
+        <p>Over the past two decades, Malaysia has experienced significant changes in forest coverage. While some areas have seen successful conservation efforts, others face ongoing challenges from agricultural expansion, logging, and urban development.</p>
+        <p><strong>The Story Behind the Data:</strong> The line chart below shows how forest coverage has evolved since 2000. Notice the fluctuations—some years show recovery due to reforestation programs, while others reveal the impact of major development projects. The 2015-2016 period, for instance, saw increased forest loss due to the El Niño weather pattern and associated forest fires.</p>
+      </div>
+      <div id="line-prf-history" class="chart"></div>
+      <div class="storytelling">
+        <h3>🌳 Understanding Tree Cover Loss</h3>
+        <p>Tree cover loss data reveals the impact of deforestation activities across different states. The patterns show both seasonal variations and long-term trends that reflect Malaysia's economic development and environmental policies.</p>
+        <p><strong>What the Bars Tell Us:</strong> Each bar represents hectares of forest lost in a specific year. The red color intensity shows the severity of loss—darker red indicates higher deforestation. Notice how some states like Sarawak and Sabah show higher loss rates due to their extensive oil palm plantations, while states like Perlis maintain lower loss due to their smaller forest areas and different land use patterns.</p>
+        <p><strong>Interactive Exploration:</strong> Use the state filter to explore individual state patterns. You'll discover that some states show cyclical patterns related to agricultural cycles, while others reveal the impact of major infrastructure projects or policy changes.</p>
+      </div>
+      <div id="bars-loss" class="chart"></div>
+    </section>
 
-      /* Vega-Lite spec */
-      const spec = {
-        $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-        width: 1400,
-        height: 850,
-        padding: 5,
-        autosize: { type: "fit", contains: "padding" }, // responsive sizing
-        params: [
-          {
-            name: "yr",
-            value: 2015, // default slider value
-            bind: {
-              input: "range",
-              min: 2003,
-              max: 2021,
-              step: 1,
-              name: "Year: ",
-            },
-          },
-        ],
-        projection: { type: "mercator", center: [109.5, 4.5], scale: 2000 },
+    <section id="air">
+      <h2>Air Quality Trends</h2>
+      <div class="storytelling">
+        <h3>💨 The Air We Breathe</h3>
+        <p>Air quality in Malaysia is closely linked to forest health and land use changes. PM2.5 and PM10 levels reflect not just urban pollution, but also the impact of forest fires, agricultural burning, and the loss of natural air filtration provided by healthy forests.</p>
+        <p><strong>The Forest-Air Connection:</strong> Healthy forests act as natural air purifiers, filtering pollutants and producing oxygen. When forests are lost, we lose this natural filtration system. The data shows how seasonal patterns in air quality correlate with forest fire seasons and agricultural burning periods, particularly during the dry season from June to September.</p>
+        <p><strong>Health Implications:</strong> PM2.5 particles are small enough to penetrate deep into our lungs and bloodstream, while PM10 particles affect our respiratory system. The World Health Organization recommends PM2.5 levels below 15 μg/m³ and PM10 below 45 μg/m³ for healthy air quality.</p>
+      </div>
+      <div id="smallmult-air" class="chart"></div>
+      <div class="storytelling">
+        <h3>🔗 The Bigger Picture</h3>
+        <p>Understanding these interconnected relationships helps us appreciate how forest conservation directly benefits human health and environmental quality across Malaysia.</p>
+        <p><strong>Our Shared Responsibility:</strong> The data tells a story of interconnected systems—when forests thrive, air quality improves, biodiversity flourishes, and communities benefit. Each visualization in this dashboard reveals a different aspect of Malaysia's environmental story, from the vast protected forests to the air we breathe daily.</p>
+        <p><strong>Looking Forward:</strong> As Malaysia continues its development journey, balancing economic growth with environmental protection becomes crucial. The patterns you see here—both positive and concerning—guide us toward more sustainable practices that ensure future generations can enjoy Malaysia's natural heritage.</p>
+        <p><em>"Cinta Tanah Airku"</em>—love for our homeland—means protecting these forests not just for their beauty, but for their essential role in our nation's health, economy, and future.</p>
+      </div>
+    </section>
+  </main>
 
-        layer: [
-          /* (1) Borders */
-          {
-            data: {
-              url: STATES_GEOJSON_URL,
-              format: { type: "json", property: "features" },
-            },
-            mark: {
-              type: "geoshape",
-              fill: null,
-              stroke: "#111827",
-              strokeWidth: 1.2,
-            },
-          },
-          /* (2) Bubbles: CSV -> normalize names -> filter year -> coerce area -> lookup coords -> plot */
-          {
-            data: { url: "forest_reserve_state.csv" },
-            transform: [
-              /* normalize CSV state names to match our centroid table */
-              {
-                calculate:
-                  "replace(replace(replace(replace(replace(replace(replace(toString(datum.state), 'Malacca','Melaka'),'Penang','Pulau Pinang'),'Kuala Lumpur','W.P. Kuala Lumpur'),'Labuan','W.P. Labuan'),'Putrajaya','W.P. Putrajaya'),'N. Sembilan','Negeri Sembilan'),'Kuala Lumpur Federal Territory','W.P. Kuala Lumpur')",
-                as: "state_norm",
-              },
-              /* extract year robustly (works for 'YYYY-MM-DD' or just 'YYYY') */
-              {
-                calculate: "toNumber(slice(toString(datum.date),0,4))",
-                as: "year",
-              },
-              { filter: "isFinite(datum.year) && datum.year == yr" },
-
-              /* coerce area to number and keep only finite values */
-              { calculate: "toNumber(datum.area)", as: "area_num" },
-              { filter: "isFinite(datum.area_num)" },
-
-              /* join coordinates from inline centroids */
-              {
-                lookup: "state_norm",
-                from: {
-                  data: { values: STATE_CENTROIDS },
-                  key: "state_norm",
-                  fields: ["lon", "lat"],
-                },
-              },
-              { filter: "isFinite(datum.lon) && isFinite(datum.lat)" },
-            ],
-            mark: {
-              type: "circle",
-              stroke: "#0f172a",
-              strokeWidth: 0.5,
-              opacity: 0.9,
-            },
-            encoding: {
-              longitude: { field: "lon", type: "quantitative" },
-              latitude: { field: "lat", type: "quantitative" },
-
-              color: {
-                field: "area_num",
-                type: "quantitative",
-                scale: { scheme: "greens" },
-                legend: { title: "Area (ha)" },
-              },
-              size: {
-                field: "area_num",
-                type: "quantitative",
-                scale: { type: "sqrt", range: [10, 1200] },
-                legend: { title: "Area (ha)" },
-              },
-              tooltip: [
-                { field: "state_norm", title: "State" },
-                { field: "year", type: "quantitative" },
-                {
-                  field: "area_num",
-                  type: "quantitative",
-                  title: "Area (ha)",
-                  format: ",",
-                },
-              ],
-            },
-          },
-
-          /* (3) Optional faint labels from GeoJSON (for context) */
-          {
-            data: {
-              url: STATES_GEOJSON_URL,
-              format: { type: "json", property: "features" },
-            },
-            transform: [
-              { calculate: nameNormExpr, as: "state_norm" },
-              /* simple label positions: you can skip computing centroids here and reuse centroid table */
-              {
-                lookup: "state_norm",
-                from: {
-                  data: { values: STATE_CENTROIDS },
-                  key: "state_norm",
-                  fields: ["lon", "lat"],
-                },
-              },
-              { filter: "isFinite(datum.lon) && isFinite(datum.lat)" },
-            ],
-            mark: { type: "text", dy: -8, opacity: 0.65, fontSize: 10 },
-            encoding: {
-              longitude: { field: "lon", type: "quantitative" },
-              latitude: { field: "lat", type: "quantitative" },
-              text: { field: "state_norm" },
-            },
-          },
-        ],
-
-        resolve: { scale: { size: "independent", color: "independent" } },
-      };
-
-      vegaEmbed("#vis", spec, {
-        actions: { export: true, source: false, editor: true },
-      });
-    </script>
-  </body>
+  <script type="module" src="./src/pages/app.js"></script>
+</body>
 </html>
+
