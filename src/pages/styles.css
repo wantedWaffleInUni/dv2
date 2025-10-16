@@ -8,3 +8,139 @@ section { margin-bottom: 32px; }
 .card { background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:16px; }
 .table { overflow:auto; }
 
+/* Overview content layout */
+.overview-content {
+  display: flex;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.table-half {
+  flex: 1;
+  max-width: 50%;
+}
+
+.malaysia-flag-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.flag-container {
+  text-align: center;
+  padding: 40px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.malaysia-flag {
+  width: 200px;
+  height: 133px;
+  border: 2px solid #333;
+  border-radius: 4px;
+  margin: 0 auto 20px;
+  display: block;
+  object-fit: contain;
+}
+
+.slogan {
+  font-size: 22px;
+  font-weight: bold;
+  color: #1f2937;
+  font-style: italic;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  margin-bottom: 16px;
+}
+
+.poem {
+  margin-top: 12px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(245, 158, 11, 0.1);
+}
+
+.poem-content {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.poem-malay, .poem-english {
+  flex: 1;
+}
+
+.poem-malay p, .poem-english p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #92400e;
+  font-style: italic;
+  text-align: center;
+  font-weight: 500;
+}
+
+.poem-malay {
+  border-right: 1px solid #f59e0b;
+  padding-right: 16px;
+}
+
+.poem-english {
+  padding-left: 16px;
+}
+
+/* Storytelling elements */
+.storytelling {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-left: 4px solid #0ea5e9;
+  padding: 24px 28px;
+  margin: 28px 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.15);
+}
+
+.storytelling h3 {
+  margin: 0 0 16px 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e40af;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.storytelling p {
+  margin: 0 0 18px 0;
+  line-height: 1.8;
+  color: #1e40af;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.storytelling p:last-child {
+  margin-bottom: 0;
+}
+
+.storytelling strong {
+  color: #1e3a8a;
+  font-weight: 600;
+}
+
+.storytelling em {
+  color: #7c3aed;
+  font-style: italic;
+  font-weight: 500;
+}
+

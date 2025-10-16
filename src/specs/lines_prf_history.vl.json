@@ -5,7 +5,33 @@
   "title": "Trend — Selected state (or Malaysia total) with year marker",
   "data": { "name": "history" },
   "params": [
-    { "name": "sel_state", "value": "All" },
+    { 
+      "name": "sel_state", 
+      "value": "All",
+      "bind": {
+        "input": "select",
+        "name": "State: ",
+        "options": [
+          "All",
+          "Johor",
+          "Kedah", 
+          "Kelantan",
+          "Kuala Lumpur",
+          "Labuan",
+          "Melaka",
+          "Negeri Sembilan",
+          "Pahang",
+          "Perak",
+          "Perlis",
+          "Pulau Pinang",
+          "Putrajaya",
+          "Sabah",
+          "Sarawak",
+          "Selangor",
+          "Terengganu"
+        ]
+      }
+    },
     { "name": "yr", "value": 2021, "bind": { "input": "range", "min": 2003, "max": 2021, "step": 1 } }
   ],
   "transform": [

@@ -2,11 +2,62 @@
   "$schema":"https://vega.github.io/schema/vega-lite/v5.json",
   "width":"container",
   "height":260,
-  "mark":"bar",
+  "title":"Tree Cover Loss by Year",
+  "params": [
+    {
+      "name": "selected_state",
+      "value": "All",
+      "bind": {
+        "input": "select",
+        "name": "State: ",
+        "options": [
+          "All",
+          "Johor",
+          "Kedah", 
+          "Kelantan",
+          "Kuala Lumpur",
+          "Labuan",
+          "Melaka",
+          "Negeri Sembilan",
+          "Pahang",
+          "Perak",
+          "Perlis",
+          "Pulau Pinang",
+          "Putrajaya",
+          "Sabah",
+          "Sarawak",
+          "Selangor",
+          "Terengganu"
+        ]
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": "selected_state == 'All' || datum.state == selected_state"
+    },
+    {
+      "aggregate": [{"op": "sum", "field": "loss_ha", "as": "total_loss"}],
+      "groupby": ["year"]
+    }
+  ],
+  "mark":{"type":"bar","size":20},
   "encoding":{
     "x":{"field":"year","type":"temporal","title":"Year"},
-    "y":{"field":"loss_ha","type":"quantitative","title":"Tree cover loss (ha)"},
-    "color":{"value":"#9ca3af"}
+    "y":{"field":"total_loss","type":"quantitative","title":"Tree cover loss (ha)"},
+    "color":{
+      "field":"total_loss",
+      "type":"quantitative",
+      "title":"Loss (ha)",
+      "scale":{
+        "range":["#fee2e2","#dc2626"],
+        "type":"linear"
+      }
+    },
+    "tooltip": [
+      {"field":"year","type":"temporal","title":"Year"},
+      {"field":"total_loss","type":"quantitative","title":"Loss (ha)","format":","}
+    ]
   },
   "data":{"name":"loss"}
 }

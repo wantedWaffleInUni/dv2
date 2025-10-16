@@ -1,3 +1,369 @@
 state,year,loss_ha
-Johor,2001,0
-
+Johor,2001,44322
+Johor,2002,35675
+Johor,2003,13598
+Johor,2004,40918
+Johor,2005,44358
+Johor,2006,36673
+Johor,2007,39359
+Johor,2008,18537
+Johor,2009,46709
+Johor,2010,28309
+Johor,2011,57793
+Johor,2012,39252
+Johor,2013,26175
+Johor,2014,53236
+Johor,2015,34147
+Johor,2016,49902
+Johor,2017,48275
+Johor,2018,36169
+Johor,2019,34891
+Johor,2020,26645
+Johor,2021,26005
+Johor,2022,19828
+Johor,2023,35053
+Kedah,2001,3811
+Kedah,2002,10088
+Kedah,2003,4519
+Kedah,2004,7257
+Kedah,2005,7734
+Kedah,2006,8267
+Kedah,2007,6110
+Kedah,2008,9966
+Kedah,2009,8346
+Kedah,2010,13112
+Kedah,2011,7761
+Kedah,2012,9264
+Kedah,2013,8125
+Kedah,2014,17542
+Kedah,2015,14438
+Kedah,2016,16312
+Kedah,2017,17850
+Kedah,2018,16521
+Kedah,2019,13925
+Kedah,2020,11505
+Kedah,2021,10208
+Kedah,2022,7959
+Kedah,2023,11274
+Kelantan,2001,10853
+Kelantan,2002,9244
+Kelantan,2003,5633
+Kelantan,2004,13945
+Kelantan,2005,12647
+Kelantan,2006,11472
+Kelantan,2007,25263
+Kelantan,2008,12802
+Kelantan,2009,33267
+Kelantan,2010,30715
+Kelantan,2011,22899
+Kelantan,2012,35473
+Kelantan,2013,17131
+Kelantan,2014,40487
+Kelantan,2015,25632
+Kelantan,2016,28320
+Kelantan,2017,21163
+Kelantan,2018,24056
+Kelantan,2019,28088
+Kelantan,2020,16407
+Kelantan,2021,19278
+Kelantan,2022,17570
+Kelantan,2023,24277
+Kuala Lumpur,2001,40
+Kuala Lumpur,2002,127
+Kuala Lumpur,2003,51
+Kuala Lumpur,2004,192
+Kuala Lumpur,2005,89
+Kuala Lumpur,2006,81
+Kuala Lumpur,2007,59
+Kuala Lumpur,2008,51
+Kuala Lumpur,2009,78
+Kuala Lumpur,2010,81
+Kuala Lumpur,2011,34
+Kuala Lumpur,2012,62
+Kuala Lumpur,2013,5
+Kuala Lumpur,2014,116
+Kuala Lumpur,2015,87
+Kuala Lumpur,2016,126
+Kuala Lumpur,2017,150
+Kuala Lumpur,2018,99
+Kuala Lumpur,2019,49
+Kuala Lumpur,2020,23
+Kuala Lumpur,2021,42
+Kuala Lumpur,2022,22
+Kuala Lumpur,2023,32
+Labuan,2001,25
+Labuan,2002,24
+Labuan,2003,18
+Labuan,2004,11
+Labuan,2005,27
+Labuan,2006,23
+Labuan,2007,42
+Labuan,2008,40
+Labuan,2009,37
+Labuan,2010,27
+Labuan,2011,55
+Labuan,2012,122
+Labuan,2013,21
+Labuan,2014,104
+Labuan,2015,119
+Labuan,2016,194
+Labuan,2017,64
+Labuan,2018,43
+Labuan,2019,36
+Labuan,2020,55
+Labuan,2021,39
+Labuan,2022,54
+Labuan,2023,60
+Melaka,2001,3669
+Melaka,2002,2870
+Melaka,2003,1285
+Melaka,2004,1278
+Melaka,2005,3845
+Melaka,2006,1811
+Melaka,2007,3389
+Melaka,2008,2022
+Melaka,2009,3314
+Melaka,2010,520
+Melaka,2011,3177
+Melaka,2012,2625
+Melaka,2013,1536
+Melaka,2014,5471
+Melaka,2015,3348
+Melaka,2016,5965
+Melaka,2017,4819
+Melaka,2018,4360
+Melaka,2019,4385
+Melaka,2020,3303
+Melaka,2021,3332
+Melaka,2022,2277
+Melaka,2023,2802
+Negeri Sembilan,2001,22646
+Negeri Sembilan,2002,25137
+Negeri Sembilan,2003,7392
+Negeri Sembilan,2004,9037
+Negeri Sembilan,2005,12835
+Negeri Sembilan,2006,7540
+Negeri Sembilan,2007,10209
+Negeri Sembilan,2008,8401
+Negeri Sembilan,2009,17303
+Negeri Sembilan,2010,5534
+Negeri Sembilan,2011,15952
+Negeri Sembilan,2012,24812
+Negeri Sembilan,2013,11291
+Negeri Sembilan,2014,19489
+Negeri Sembilan,2015,11125
+Negeri Sembilan,2016,18276
+Negeri Sembilan,2017,14923
+Negeri Sembilan,2018,11891
+Negeri Sembilan,2019,11620
+Negeri Sembilan,2020,8243
+Negeri Sembilan,2021,8377
+Negeri Sembilan,2022,6600
+Negeri Sembilan,2023,8547
+Pahang,2001,48491
+Pahang,2002,59025
+Pahang,2003,27207
+Pahang,2004,45679
+Pahang,2005,61791
+Pahang,2006,45114
+Pahang,2007,44128
+Pahang,2008,34158
+Pahang,2009,55499
+Pahang,2010,57083
+Pahang,2011,57940
+Pahang,2012,94404
+Pahang,2013,43719
+Pahang,2014,89904
+Pahang,2015,64791
+Pahang,2016,104379
+Pahang,2017,74405
+Pahang,2018,62746
+Pahang,2019,59680
+Pahang,2020,44639
+Pahang,2021,47470
+Pahang,2022,39086
+Pahang,2023,52169
+Perak,2001,16679
+Perak,2002,21137
+Perak,2003,9688
+Perak,2004,14738
+Perak,2005,19812
+Perak,2006,12189
+Perak,2007,20033
+Perak,2008,16843
+Perak,2009,29728
+Perak,2010,27248
+Perak,2011,21533
+Perak,2012,25738
+Perak,2013,18357
+Perak,2014,35570
+Perak,2015,25245
+Perak,2016,36080
+Perak,2017,33527
+Perak,2018,25704
+Perak,2019,25298
+Perak,2020,18457
+Perak,2021,22432
+Perak,2022,16316
+Perak,2023,23518
+Perlis,2001,299
+Perlis,2002,196
+Perlis,2003,60
+Perlis,2004,122
+Perlis,2005,244
+Perlis,2006,89
+Perlis,2007,91
+Perlis,2008,117
+Perlis,2009,277
+Perlis,2010,175
+Perlis,2011,400
+Perlis,2012,665
+Perlis,2013,476
+Perlis,2014,845
+Perlis,2015,328
+Perlis,2016,874
+Perlis,2017,631
+Perlis,2018,450
+Perlis,2019,1231
+Perlis,2020,864
+Perlis,2021,287
+Perlis,2022,420
+Perlis,2023,1091
+Pulau Pinang,2001,136
+Pulau Pinang,2002,447
+Pulau Pinang,2003,201
+Pulau Pinang,2004,428
+Pulau Pinang,2005,527
+Pulau Pinang,2006,605
+Pulau Pinang,2007,339
+Pulau Pinang,2008,344
+Pulau Pinang,2009,729
+Pulau Pinang,2010,953
+Pulau Pinang,2011,586
+Pulau Pinang,2012,719
+Pulau Pinang,2013,421
+Pulau Pinang,2014,1028
+Pulau Pinang,2015,593
+Pulau Pinang,2016,883
+Pulau Pinang,2017,782
+Pulau Pinang,2018,587
+Pulau Pinang,2019,595
+Pulau Pinang,2020,558
+Pulau Pinang,2021,623
+Pulau Pinang,2022,402
+Pulau Pinang,2023,1154
+Putrajaya,2001,64
+Putrajaya,2002,54
+Putrajaya,2003,25
+Putrajaya,2004,54
+Putrajaya,2005,32
+Putrajaya,2006,5
+Putrajaya,2007,31
+Putrajaya,2008,8
+Putrajaya,2009,53
+Putrajaya,2010,44
+Putrajaya,2011,20
+Putrajaya,2012,14
+Putrajaya,2013,8
+Putrajaya,2014,49
+Putrajaya,2015,40
+Putrajaya,2016,86
+Putrajaya,2017,70
+Putrajaya,2018,69
+Putrajaya,2019,72
+Putrajaya,2020,42
+Putrajaya,2021,54
+Putrajaya,2022,28
+Putrajaya,2023,39
+Sabah,2001,64370
+Sabah,2002,60688
+Sabah,2003,33474
+Sabah,2004,87506
+Sabah,2005,73545
+Sabah,2006,82251
+Sabah,2007,63207
+Sabah,2008,84908
+Sabah,2009,92681
+Sabah,2010,104537
+Sabah,2011,68836
+Sabah,2012,106407
+Sabah,2013,68909
+Sabah,2014,146741
+Sabah,2015,114108
+Sabah,2016,121497
+Sabah,2017,94678
+Sabah,2018,101208
+Sabah,2019,101774
+Sabah,2020,79902
+Sabah,2021,77914
+Sabah,2022,76585
+Sabah,2023,109274
+Sarawak,2001,103528
+Sarawak,2002,74805
+Sarawak,2003,74492
+Sarawak,2004,110116
+Sarawak,2005,122738
+Sarawak,2006,114668
+Sarawak,2007,176108
+Sarawak,2008,163947
+Sarawak,2009,307414
+Sarawak,2010,137087
+Sarawak,2011,192067
+Sarawak,2012,271979
+Sarawak,2013,133502
+Sarawak,2014,238431
+Sarawak,2015,163521
+Sarawak,2016,189914
+Sarawak,2017,177586
+Sarawak,2018,162721
+Sarawak,2019,128771
+Sarawak,2020,82824
+Sarawak,2021,82201
+Sarawak,2022,87348
+Sarawak,2023,100404
+Selangor,2001,11351
+Selangor,2002,7445
+Selangor,2003,3809
+Selangor,2004,8493
+Selangor,2005,8230
+Selangor,2006,4800
+Selangor,2007,9598
+Selangor,2008,6391
+Selangor,2009,14357
+Selangor,2010,9811
+Selangor,2011,3731
+Selangor,2012,7997
+Selangor,2013,3815
+Selangor,2014,15113
+Selangor,2015,6748
+Selangor,2016,11546
+Selangor,2017,10753
+Selangor,2018,10364
+Selangor,2019,10210
+Selangor,2020,5997
+Selangor,2021,9569
+Selangor,2022,4980
+Selangor,2023,7497
+Terengganu,2001,10222
+Terengganu,2002,10109
+Terengganu,2003,4406
+Terengganu,2004,15811
+Terengganu,2005,10084
+Terengganu,2006,10621
+Terengganu,2007,9445
+Terengganu,2008,11312
+Terengganu,2009,15475
+Terengganu,2010,17082
+Terengganu,2011,12300
+Terengganu,2012,17000
+Terengganu,2013,13660
+Terengganu,2014,17494
+Terengganu,2015,15507
+Terengganu,2016,21377
+Terengganu,2017,19638
+Terengganu,2018,17525
+Terengganu,2019,15557
+Terengganu,2020,10534
+Terengganu,2021,11800
+Terengganu,2022,12977
+Terengganu,2023,11578

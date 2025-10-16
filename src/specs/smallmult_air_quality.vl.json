@@ -22,8 +22,8 @@
     },
     {"filter":"isFinite(datum.value) && isFinite(datum.m) && datum.m>=1 && datum.m<=12"},
     {
-      "calculate": "datum.y + (datum.m - 1) / 12",
-      "as": "date_num"
+      "calculate": "datetime(datum.y, datum.m - 1, 1)",
+      "as": "date"
     }
   ],
   
@@ -32,10 +32,10 @@
       "mark": {"type":"line", "point": true, "strokeWidth": 2},
       "encoding": {
         "x": {
-          "field": "date_num",
-          "type": "quantitative",
+          "field": "date",
+          "type": "temporal",
           "title": "Year",
-          "scale": {"domain": [2017, 2023]}
+          "scale": {"domain": [{"year": 2017}, {"year": 2023}]}
         },
         "y": {
           "field": "value", 
@@ -58,7 +58,7 @@
         {"aggregate":[{"op":"mean","field":"value","as":"avg"}], "groupby":["y"]}
       ],
       "encoding": {
-        "x": {"field":"date_num", "type":"quantitative"},
+        "x": {"field":"date", "type":"temporal"},
         "y": {"field":"avg", "type":"quantitative"},
         "color": {"value":"#6b7280"}
       }
