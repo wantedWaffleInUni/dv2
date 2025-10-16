@@ -23,6 +23,7 @@ async function boot(){
     "W.P. Kuala Lumpur": "Kuala Lumpur",
     "W.P. Labuan": "Labuan",
     "W.P. Putrajaya": "Putrajaya",
+    "Pulau Pinang": "Penang",
   };
   const prfWithISO = prf.map(r => ({
     ...r,
@@ -56,7 +57,7 @@ async function boot(){
   // Render charts
   const mapSpec = await fetch("/src/specs/map_prf_overview.vl.json").then(r=>r.json());
   mapSpec.datasets = {
-    states: shapes,
+    states: shapes.features || [],
     prf: prfWithISO
   };
   await renderVega("#map-prf", mapSpec);
