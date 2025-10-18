@@ -1,6 +1,18 @@
 :root { --max: 1200px; --pad: 16px; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
 body { margin:0; color:#1f2937; background:#fafafa; }
-.topbar { padding: var(--pad); border-bottom:1px solid #e5e7eb; background:#fff; }
+.topbar { 
+  padding: var(--pad); 
+  border-bottom:1px solid #e5e7eb; 
+  background:#fff; 
+  text-align: center;
+}
+.topbar h1 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: #1f2937;
+}
 #app { max-width: var(--max); margin: 0 auto; padding: calc(var(--pad) * 1.5); }
 section { margin-bottom: 32px; }
 .chart { width: 100%; min-height: 360px; margin: 12px 0; }
