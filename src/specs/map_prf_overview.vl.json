@@ -2,17 +2,20 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": "container",
   "height": 420,
-  "projection": { "type": "mercator", "fit": { "data": { "name": "states" } } },
+  "data": { "name": "states" },
+  "projection": { 
+    "type": "mercator",
+    "center": [109.5, 4.5],
+    "scale": 2000
+  },
   "layer": [
     {
-      "data": { "name": "states" },
       "mark": { "type": "geoshape", "fill": "#d1d5db", "stroke": "#374151", "strokeWidth": 0.6 },
       "encoding": {
         "tooltip": [{"field": "properties.shapeName", "type": "nominal", "title": "State"}]
       }
     },
     {
-      "data": { "name": "states" },
       "transform": [
         { "filter": "isValid(datum.properties) && isValid(datum.properties.shapeISO)" },
         {

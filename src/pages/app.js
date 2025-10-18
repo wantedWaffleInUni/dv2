@@ -16,8 +16,12 @@ async function boot(){
 
   // Build a map: shapeName -> shapeISO from the GeoJSON
   // app.js (after loading shapes & prf)
+// In app.js, update the isoByName mapping:
   const isoByName = Object.fromEntries(
-    (shapes.features || []).map(f => [f.properties?.shapeName, f.properties?.shapeISO])
+    (shapes.features || []).map(f => [
+      f.properties?.shapeName, 
+      f.properties?.shapeISO || f.properties?.ISO_A1 || f.properties?.ADM1_PCODE
+    ])
   );
   const aliases = {
     "W.P. Kuala Lumpur": "Kuala Lumpur",
@@ -33,7 +37,9 @@ async function boot(){
 
   console.log('geo feature sample', shapes.features?.[0]?.properties);
   console.log('prf sample', prfWithISO[0]);
-
+  // In app.js, after line 34, add:
+  console.log('GeoJSON properties:', shapes.features?.[0]?.properties);
+  console.log('Available property keys:', Object.keys(shapes.features?.[0]?.properties || {}));
 
   // KPIs (naive placeholders)
   const totalPRF = prfWithISO.reduce((s,r)=>s+Number(r.prf_ha||0),0);
