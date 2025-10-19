@@ -74,11 +74,11 @@ section {
   flex: 1;
   max-width: 50%;
 }
-
+/* 
 .table-half {
   flex: 1;
   max-width: 50%;
-}
+} */
 
 .table-full {
   width: 100%;

@@ -9,7 +9,8 @@ async function boot(){
   document.getElementById("last-updated").textContent = `Last updated: ${meta.lastUpdated}`;
 
   const prf = await loadCSV("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/public/data/prf_state_latest.csv");
-  const shapes = await loadJSON("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/public/data/mys_states.geojson");
+  const prfTable = await loadCSV("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/public/data/prf_state_table.csv");
+  const shapes = await loadJSON("https://raw.githubusercontent.com/wantedWaffleInUni/dv2/main/geoBoundaries-MYS-ADM1.geojson");
   const history = await loadCSV("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/public/data/prf_state_history.csv");
   const loss = await loadCSV("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/public/data/gfw_loss_state.csv");
   const aq = await loadCSV("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/public/data/air_quality_monthly.csv");
@@ -34,12 +35,22 @@ async function boot(){
     shapeISO: isoByName[aliases[r.state] || r.state] || null
   }));
 
+  const prfTableWithISO = prfTable.map(r => ({
+    ...r,
+    shapeISO: isoByName[aliases[r.state] || r.state] || null
+  }));
+
 
   console.log('geo feature sample', shapes.features?.[0]?.properties);
   console.log('prf sample', prfWithISO[0]);
   // In app.js, after line 34, add:
   console.log('GeoJSON properties:', shapes.features?.[0]?.properties);
   console.log('Available property keys:', Object.keys(shapes.features?.[0]?.properties || {}));
+
+  // Add this after line 42 in app.js
+  console.log('shapes.features length:', shapes.features?.length);
+  console.log('prfWithISO length:', prfWithISO.length);
+  console.log('prfWithISO with shapeISO:', prfWithISO.filter(r => r.shapeISO));
 
   // KPIs (naive placeholders)
   const totalPRF = prfWithISO.reduce((s,r)=>s+Number(r.prf_ha||0),0);
@@ -48,18 +59,15 @@ async function boot(){
     {label:"States", value: prfWithISO.length}
   ].map(kpiCard).forEach(el=>kpiRoot.appendChild(el));
 
-  // Ranks table - Top 3 states only
-  const rows = prfWithISO.map(r=>({
-    state: r.state,
-    prf_ha: Number(r.prf_ha||0),
-    prf_pct: (Number(r.prf_pct)||0).toFixed(1)+"%"
-  })).sort((a,b)=>b.prf_ha-a.prf_ha).slice(0, 3).map(r=>({
+  // Ranks table - Top 5 states by PRF area
+  const rows = prfTableWithISO.map(r=>({
     state: r.state,
     prf_ha: formatNum(r.prf_ha),
-    prf_pct: r.prf_pct
-  }));
+    prf_pct: (Number(r.prf_pct)||0).toFixed(1)+"%"
+  }))
+  .sort((a,b)=>Number(b.prf_ha.replace(/,/g,""))-Number(a.prf_ha.replace(/,/g,"")))
+  .slice(0, 5); // Show only top 5
   
-  console.log('Top 3 states:', rows);
   renderTable("#state-rank", rows, [
     {key:"state", label:"State"},
     {key:"prf_ha", label:"PRF (ha)"},
@@ -70,7 +78,7 @@ async function boot(){
   const mapSpec = await fetch("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/src/specs/map_prf_overview.vl.json").then(r=>r.json());
   mapSpec.datasets = {
     states: shapes.features || [],
-    prf: prfWithISO
+    prf: prf
   };
   await renderVega("#map-prf", mapSpec);
 
