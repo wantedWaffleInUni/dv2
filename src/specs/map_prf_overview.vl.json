@@ -15,15 +15,15 @@
         "strokeWidth": 0.6
       },
       "encoding": {
-        "tooltip": [{"field": "properties.shapeName", "type": "nominal", "title": "State"}]
+        "tooltip": [{"field": "properties.state_name", "type": "nominal", "title": "State"}]
       }
     },
     {
       "data": { "name": "states" },
       "transform": [
-        { "filter": "isValid(datum.properties) && isValid(datum.properties.shapeISO)" },
+        { "filter": "isValid(datum.properties) && isValid(datum.properties.state_iso)" },
         {
-          "lookup": "properties.shapeISO",
+          "lookup": "properties.state_iso",
           "from": { "data": { "name": "prf" }, "key": "shapeISO",
             "fields": ["prf_pct","prf_ha","state"] }
         },
@@ -37,7 +37,7 @@
           "scale": { "scheme": "greens", "type": "quantize", "domain": [0,60] }
         },
         "tooltip": [
-          { "field": "properties.shapeName", "type": "nominal", "title": "State" },
+          { "field": "properties.state_name", "type": "nominal", "title": "State" },
           { "field": "prf_ha", "type": "quantitative", "title": "PRF (ha)" },
           { "field": "prf_pct", "type": "quantitative", "title": "PRF %" }
         ]
