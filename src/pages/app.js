@@ -76,7 +76,9 @@ async function boot(){
   };
   const prfWithISO = prf.map(r => ({
     ...r,
-    shapeISO: isoByName[aliases[r.state] || r.state] || null
+    state_code: String(r.state_code ?? '').trim(),      // must match GeoJSON exactly
+    prf_ha: Number(r.prf_ha),
+    prf_pct: Number(r.prf_pct)
   }));
 
   const prfTableWithISO = prfTable.map(r => ({
@@ -128,7 +130,7 @@ async function boot(){
   const mapSpec = await fetch("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/src/specs/map_prf_overview.vl.json").then(r=>r.json());
   mapSpec.datasets = {
     states: shapes.features || [],
-    prf: prf
+    prf: prfWithISO
   };
   await renderVega("#map-prf", mapSpec);
 
