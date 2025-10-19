@@ -5,15 +5,61 @@ import { loadCSV, loadJSON } from "../utils/fetcher.js";
 import { joinByKey, pct, formatNum } from "../utils/transforms.js";
 
 async function boot(){
-  const meta = await fetch("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/config/meta.json").then(r=>r.json());
-  document.getElementById("last-updated").textContent = `Last updated: ${meta.lastUpdated}`;
+  console.log("🚀 App starting...");
+  
+  try {
+    const meta = await fetch("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/config/meta.json").then(r=>r.json());
+    document.getElementById("last-updated").textContent = `Last updated: ${meta.lastUpdated}`;
+    console.log("✅ Meta loaded:", meta);
+  } catch (error) {
+    console.error("❌ Error loading meta:", error);
+  }
 
-  const prf = await loadCSV("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/public/data/prf_state_latest.csv");
-  const prfTable = await loadCSV("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/public/data/prf_state_table.csv");
-  const shapes = await loadJSON("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/malaysia_states_fixed.geojson");
-  const history = await loadCSV("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/public/data/prf_state_history.csv");
-  const loss = await loadCSV("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/public/data/gfw_loss_state.csv");
-  const aq = await loadCSV("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/public/data/air_quality_monthly.csv");
+  console.log("📊 Loading data...");
+  
+  let prf, prfTable, shapes, history, loss, aq;
+  
+  try {
+    prf = await loadCSV("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/public/data/prf_state_latest.csv");
+    console.log("✅ PRF data loaded:", prf.length, "records");
+  } catch (error) {
+    console.error("❌ Error loading PRF data:", error);
+  }
+  
+  try {
+    prfTable = await loadCSV("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/public/data/prf_state_table.csv");
+    console.log("✅ PRF Table data loaded:", prfTable.length, "records");
+  } catch (error) {
+    console.error("❌ Error loading PRF Table data:", error);
+  }
+  
+  try {
+    shapes = await loadJSON("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/malaysia_states_fixed.geojson");
+    console.log("✅ Shapes data loaded:", shapes.features?.length, "features");
+  } catch (error) {
+    console.error("❌ Error loading shapes data:", error);
+  }
+  
+  try {
+    history = await loadCSV("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/public/data/prf_state_history.csv");
+    console.log("✅ History data loaded:", history.length, "records");
+  } catch (error) {
+    console.error("❌ Error loading history data:", error);
+  }
+  
+  try {
+    loss = await loadCSV("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/public/data/gfw_loss_state.csv");
+    console.log("✅ Loss data loaded:", loss.length, "records");
+  } catch (error) {
+    console.error("❌ Error loading loss data:", error);
+  }
+  
+  try {
+    aq = await loadCSV("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/public/data/air_quality_monthly.csv");
+    console.log("✅ Air quality data loaded:", aq.length, "records");
+  } catch (error) {
+    console.error("❌ Error loading air quality data:", error);
+  }
 
   // Build a map: state_name -> state_iso from the GeoJSON
   const isoByName = Object.fromEntries(
@@ -66,8 +112,11 @@ async function boot(){
   .sort((a,b)=>Number(b.prf_ha.replace(/,/g,""))-Number(a.prf_ha.replace(/,/g,"")))
   .slice(0, 5); // Show only top 5
   
+  console.log('prfTable length:', prfTable.length);
+  console.log('prfTableWithISO length:', prfTableWithISO.length);
   console.log('Table rows length:', rows.length);
   console.log('Table rows:', rows);
+  console.log('prfTable data:', prfTable);
   
   renderTable("#state-rank", rows, [
     {key:"state", label:"State"},
@@ -96,5 +145,11 @@ async function boot(){
   aqSpec.datasets = { aq };
   await renderVega("#smallmult-air", aqSpec);
 }
-boot();
+
+// Add error handling for the boot function
+boot().catch(error => {
+  console.error("💥 Fatal error in boot function:", error);
+});
+
+console.log("🔧 Script loaded, boot function called");
 
