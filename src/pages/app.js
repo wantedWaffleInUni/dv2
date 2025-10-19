@@ -76,7 +76,7 @@ async function boot(){
   };
   const prfWithISO = prf.map(r => ({
     ...r,
-    state_code: String(r.state_code ?? '').trim(),      // must match GeoJSON exactly
+    shapeISO: String(r.state_code ?? '').trim(),      // must match GeoJSON exactly
     prf_ha: Number(r.prf_ha),
     prf_pct: Number(r.prf_pct)
   }));
@@ -119,6 +119,13 @@ async function boot(){
   console.log('Table rows length:', rows.length);
   console.log('Table rows:', rows);
   console.log('prfTable data:', prfTable);
+  
+  // Debug the data joining
+  console.log('🔍 Debugging data joining:');
+  console.log('GeoJSON first feature properties:', shapes.features?.[0]?.properties);
+  console.log('PRF first record:', prfWithISO[0]);
+  console.log('Available GeoJSON fields:', Object.keys(shapes.features?.[0]?.properties || {}));
+  console.log('Available PRF fields:', Object.keys(prfWithISO[0] || {}));
   
   renderTable("#state-rank", rows, [
     {key:"state", label:"State"},
