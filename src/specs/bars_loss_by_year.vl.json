@@ -49,6 +49,7 @@
       "field":"total_loss",
       "type":"quantitative",
       "title":"Loss (ha)",
+      "legend": null,
       "scale":{
         "range":["#fee2e2","#dc2626"],
         "type":"linear"

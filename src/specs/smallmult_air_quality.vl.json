@@ -55,6 +55,7 @@
     {
       "mark": {"type":"rule", "strokeWidth":1, "strokeDash":[4,3], "opacity": 0.6},
       "transform": [
+        {"filter": "isFinite(datum.value)"},
         {"aggregate":[{"op":"mean","field":"value","as":"avg"}], "groupby":["y"]}
       ],
       "encoding": {

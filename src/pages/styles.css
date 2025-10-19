@@ -1,11 +1,22 @@
-:root { --max: 1200px; --pad: 16px; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
-body { margin:0; color:#1f2937; background:#fafafa; }
-.topbar { 
-  padding: var(--pad); 
-  border-bottom:1px solid #e5e7eb; 
-  background:#fff; 
+:root {
+  --max: 1200px;
+  --pad: 16px;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+body {
+  margin: 0;
+  color: #1f2937;
+  background: #fafafa;
+}
+
+.topbar {
+  padding: var(--pad);
+  border-bottom: 1px solid #e5e7eb;
+  background: #fff;
   text-align: center;
 }
+
 .topbar h1 {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 2.5rem;
@@ -13,12 +24,39 @@ body { margin:0; color:#1f2937; background:#fafafa; }
   margin: 0;
   color: #1f2937;
 }
-#app { max-width: var(--max); margin: 0 auto; padding: calc(var(--pad) * 1.5); }
-section { margin-bottom: 32px; }
-.chart { width: 100%; min-height: 360px; margin: 12px 0; }
-.grid.kpis { display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap:12px; }
-.card { background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:16px; }
-.table { overflow:auto; }
+
+#app {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: calc(var(--pad) * 1.5);
+}
+
+section {
+  margin-bottom: 32px;
+}
+
+.chart {
+  width: 100%;
+  min-height: 360px;
+  margin: 12px 0;
+}
+
+.grid.kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.table {
+  overflow: auto;
+}
 
 /* Overview content layout */
 .overview-content {
@@ -27,9 +65,23 @@ section { margin-bottom: 32px; }
   align-items: stretch;
 }
 
+.storytelling-section {
+  flex: 1;
+  max-width: 50%;
+}
+
+.table-section {
+  flex: 1;
+  max-width: 50%;
+}
+
 .table-half {
   flex: 1;
   max-width: 50%;
+}
+
+.table-full {
+  width: 100%;
 }
 
 .malaysia-flag-section {
@@ -46,7 +98,7 @@ section { margin-bottom: 32px; }
   background: #fff;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 100%;
   height: 100%;
@@ -71,7 +123,7 @@ section { margin-bottom: 32px; }
   font-weight: bold;
   color: #1f2937;
   font-style: italic;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
   margin-bottom: 16px;
 }
 
@@ -90,11 +142,13 @@ section { margin-bottom: 32px; }
   align-items: flex-start;
 }
 
-.poem-malay, .poem-english {
+.poem-malay,
+.poem-english {
   flex: 1;
 }
 
-.poem-malay p, .poem-english p {
+.poem-malay p,
+.poem-english p {
   margin: 0;
   font-size: 13px;
   line-height: 1.8;
@@ -156,3 +210,26 @@ section { margin-bottom: 32px; }
   font-weight: 500;
 }
 
+/* Bottom section layout */
+#bottom-section {
+  margin-top: 40px;
+}
+
+.bottom-content {
+  display: flex;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.bottom-storytelling {
+  flex: 1;
+  max-width: 50%;
+}
+
+.bottom-storytelling .storytelling {
+  margin: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

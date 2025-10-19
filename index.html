@@ -16,18 +16,63 @@
   </header>
 
   <main id="app">
-    <section id="kpis" class="grid kpis"></section>
-
     <section id="overview">
       <h2>Where are Permanent Reserved Forests?</h2>
-      <div class="storytelling">
-        <h3>🌿 Malaysia's Forest Heritage</h3>
-        <p>Malaysia's forests are among the world's most biodiverse, housing over 15,000 species of flowering plants and countless wildlife. These ancient ecosystems, some dating back 130 million years, serve as vital carbon sinks and provide essential ecosystem services for millions of people.</p>
-        <p><strong>Did you know?</strong> Malaysia's forests store approximately 2.3 billion tonnes of carbon, equivalent to 8.5 billion tonnes of CO₂. The Permanent Reserved Forests (PRFs) you see on this map represent Malaysia's commitment to sustainable forest management, covering over 5.8 million hectares of protected land.</p>
+      <section id="kpis" class="grid kpis"></section>
+      <div class="overview-content">
+        <div class="storytelling-section">
+          <div class="storytelling">
+            <h3>🌿 Malaysia's Forest Heritage</h3>
+            <p>Malaysia's forests are among the world's most biodiverse, housing over 15,000 species of flowering plants. These ancient ecosystems serve as vital carbon sinks and provide essential ecosystem services.</p>
+            <p><strong>Did you know?</strong> Malaysia's forests store 2.3 billion tonnes of carbon. The Permanent Reserved Forests (PRFs) represent Malaysia's commitment to sustainable forest management, covering over 5.8 million hectares of protected land.</p>
+          </div>
+        </div>
+        <div class="table-section">
+          <div id="state-rank" class="table table-half"></div>
+        </div>
       </div>
       <div id="map-prf" class="chart"></div>
-      <div class="overview-content">
-        <div id="state-rank" class="table table-half"></div>
+    </section>
+
+    <section id="trends">
+      <h2>How has coverage changed?</h2>
+      <div class="storytelling">
+        <h3>📈 The Forest Coverage Journey</h3>
+        <p>Over the past two decades, Malaysia has experienced significant changes in forest coverage. Some areas show successful conservation efforts, while others face challenges from agricultural expansion and urban development.</p>
+        <p><strong>The Story Behind the Data:</strong> The line chart shows forest coverage evolution since 2000. Notice fluctuations—some years show recovery from reforestation programs, while others reveal impacts of development projects and weather patterns like El Niño.</p>
+      </div>
+      <div id="line-prf-history" class="chart"></div>
+      <div class="storytelling">
+        <h3>🌳 Understanding Tree Cover Loss</h3>
+        <p>Tree cover loss data reveals deforestation impacts across different states. Patterns show seasonal variations and long-term trends reflecting Malaysia's economic development and environmental policies.</p>
+        <p><strong>What the Bars Tell Us:</strong> Each bar represents hectares of forest lost per year. Red color intensity shows severity—darker red indicates higher deforestation. States like Sarawak and Sabah show higher loss rates due to oil palm plantations, while Perlis maintains lower loss due to smaller forest areas.</p>
+        <p><strong>Interactive Exploration:</strong> Use the state filter to explore individual patterns. Some states show cyclical agricultural patterns, while others reveal impacts of infrastructure projects or policy changes.</p>
+      </div>
+      <div id="bars-loss" class="chart"></div>
+    </section>
+
+    <section id="air">
+      <h2>Air Quality Trends</h2>
+      <div class="storytelling">
+        <h3>💨 The Air We Breathe</h3>
+        <p>Air quality in Malaysia is closely linked to forest health and land use changes. PM2.5 and PM10 levels reflect urban pollution, forest fires, agricultural burning, and the loss of natural air filtration from healthy forests.</p>
+        <p><strong>The Forest-Air Connection:</strong> Healthy forests act as natural air purifiers, filtering pollutants and producing oxygen. When forests are lost, we lose this natural filtration system. Seasonal patterns correlate with forest fire seasons and agricultural burning periods, particularly during the dry season from June to September.</p>
+        <p><strong>Health Implications:</strong> PM2.5 particles penetrate deep into lungs and bloodstream, while PM10 particles affect respiratory systems. WHO recommends PM2.5 below 15 μg/m³ and PM10 below 45 μg/m³ for healthy air quality.</p>
+      </div>
+      <div id="smallmult-air" class="chart"></div>
+    </section>
+
+    <section id="bottom-section">
+      <div class="bottom-content">
+        <div class="bottom-storytelling">
+          <div class="storytelling">
+            <h3>🔗 The Bigger Picture</h3>
+            <p>Understanding these interconnected relationships helps us appreciate how forest conservation directly benefits human health and environmental quality across Malaysia.</p>
+            <p><strong>Our Shared Responsibility:</strong> The data tells a story of interconnected systems—when forests thrive, air quality improves, biodiversity flourishes, and communities benefit. Each visualization reveals different aspects of Malaysia's environmental story.</p>
+            <p><strong>Looking Forward:</strong> As Malaysia continues its development journey, balancing economic growth with environmental protection becomes crucial. The patterns here guide us toward more sustainable practices for future generations.</p>
+            <p><em>"Cinta Tanah Airku"</em>—love for our homeland—means protecting these forests for their essential role in our nation's health, economy, and future.</p>
+          </div>
+        </div>
         <div class="malaysia-flag-section">
           <div class="flag-container">
             <img src="https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/src/components/Flag_of_Malaysia.svg" alt="Malaysian Flag" class="malaysia-flag">
@@ -50,41 +95,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section id="trends">
-      <h2>How has coverage changed?</h2>
-      <div class="storytelling">
-        <h3>📈 The Forest Coverage Journey</h3>
-        <p>Over the past two decades, Malaysia has experienced significant changes in forest coverage. While some areas have seen successful conservation efforts, others face ongoing challenges from agricultural expansion, logging, and urban development.</p>
-        <p><strong>The Story Behind the Data:</strong> The line chart below shows how forest coverage has evolved since 2000. Notice the fluctuations—some years show recovery due to reforestation programs, while others reveal the impact of major development projects. The 2015-2016 period, for instance, saw increased forest loss due to the El Niño weather pattern and associated forest fires.</p>
-      </div>
-      <div id="line-prf-history" class="chart"></div>
-      <div class="storytelling">
-        <h3>🌳 Understanding Tree Cover Loss</h3>
-        <p>Tree cover loss data reveals the impact of deforestation activities across different states. The patterns show both seasonal variations and long-term trends that reflect Malaysia's economic development and environmental policies.</p>
-        <p><strong>What the Bars Tell Us:</strong> Each bar represents hectares of forest lost in a specific year. The red color intensity shows the severity of loss—darker red indicates higher deforestation. Notice how some states like Sarawak and Sabah show higher loss rates due to their extensive oil palm plantations, while states like Perlis maintain lower loss due to their smaller forest areas and different land use patterns.</p>
-        <p><strong>Interactive Exploration:</strong> Use the state filter to explore individual state patterns. You'll discover that some states show cyclical patterns related to agricultural cycles, while others reveal the impact of major infrastructure projects or policy changes.</p>
-      </div>
-      <div id="bars-loss" class="chart"></div>
-    </section>
-
-    <section id="air">
-      <h2>Air Quality Trends</h2>
-      <div class="storytelling">
-        <h3>💨 The Air We Breathe</h3>
-        <p>Air quality in Malaysia is closely linked to forest health and land use changes. PM2.5 and PM10 levels reflect not just urban pollution, but also the impact of forest fires, agricultural burning, and the loss of natural air filtration provided by healthy forests.</p>
-        <p><strong>The Forest-Air Connection:</strong> Healthy forests act as natural air purifiers, filtering pollutants and producing oxygen. When forests are lost, we lose this natural filtration system. The data shows how seasonal patterns in air quality correlate with forest fire seasons and agricultural burning periods, particularly during the dry season from June to September.</p>
-        <p><strong>Health Implications:</strong> PM2.5 particles are small enough to penetrate deep into our lungs and bloodstream, while PM10 particles affect our respiratory system. The World Health Organization recommends PM2.5 levels below 15 μg/m³ and PM10 below 45 μg/m³ for healthy air quality.</p>
-      </div>
-      <div id="smallmult-air" class="chart"></div>
-      <div class="storytelling">
-        <h3>🔗 The Bigger Picture</h3>
-        <p>Understanding these interconnected relationships helps us appreciate how forest conservation directly benefits human health and environmental quality across Malaysia.</p>
-        <p><strong>Our Shared Responsibility:</strong> The data tells a story of interconnected systems—when forests thrive, air quality improves, biodiversity flourishes, and communities benefit. Each visualization in this dashboard reveals a different aspect of Malaysia's environmental story, from the vast protected forests to the air we breathe daily.</p>
-        <p><strong>Looking Forward:</strong> As Malaysia continues its development journey, balancing economic growth with environmental protection becomes crucial. The patterns you see here—both positive and concerning—guide us toward more sustainable practices that ensure future generations can enjoy Malaysia's natural heritage.</p>
-        <p><em>"Cinta Tanah Airku"</em>—love for our homeland—means protecting these forests not just for their beauty, but for their essential role in our nation's health, economy, and future.</p>
       </div>
     </section>
   </main>

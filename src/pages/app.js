@@ -48,12 +48,18 @@ async function boot(){
     {label:"States", value: prfWithISO.length}
   ].map(kpiCard).forEach(el=>kpiRoot.appendChild(el));
 
-  // Ranks table
+  // Ranks table - Top 3 states only
   const rows = prfWithISO.map(r=>({
     state: r.state,
-    prf_ha: formatNum(r.prf_ha),
+    prf_ha: Number(r.prf_ha||0),
     prf_pct: (Number(r.prf_pct)||0).toFixed(1)+"%"
-  })).sort((a,b)=>Number(b.prf_ha.replace(/,/g,""))-Number(a.prf_ha.replace(/,/g,"")));
+  })).sort((a,b)=>b.prf_ha-a.prf_ha).slice(0, 3).map(r=>({
+    state: r.state,
+    prf_ha: formatNum(r.prf_ha),
+    prf_pct: r.prf_pct
+  }));
+  
+  console.log('Top 3 states:', rows);
   renderTable("#state-rank", rows, [
     {key:"state", label:"State"},
     {key:"prf_ha", label:"PRF (ha)"},
