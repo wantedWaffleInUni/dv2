@@ -58,41 +58,40 @@
         { "filter": "isValid(datum.properties) && isValid(datum.properties.iso_3166_2)" },
         {
           "lookup": "properties.iso_3166_2",
-          "from": { "data": { "name": "prf" }, "key": "shapeISO",
-            "fields": ["prf_pct","prf_ha","state"] }
+          "from": {
+            "data": { "name": "prf" },
+            "key": "shapeISO",
+            "fields": ["prf_pct","prf_ha","state","lon","lat"]
+          }
         },
-        { "filter": "isValid(datum.prf_pct)" },
-        {
-          "window": [
-            {"op": "rank", "as": "rank_asc"},
-            {"op": "rank", "as": "rank_desc", "sort": [{"field": "prf_pct", "order": "descending"}]}
-          ]
-        },
-        { "filter": "datum.rank_asc <= 3 || datum.rank_desc <= 3" }
+        { "filter": "isValid(datum.prf_pct) && isFinite(datum.lon) && isFinite(datum.lat)" },
+    
+        { "window": [{ "op": "rank", "as": "rank_desc" }], "sort": [{ "field": "prf_pct", "order": "descending" }] },
+        { "window": [{ "op": "rank", "as": "rank_asc" }],  "sort": [{ "field": "prf_pct", "order": "ascending"  }] },
+    
+        { "filter": "datum.rank_desc <= 3 || datum.rank_asc <= 1" }
       ],
       "mark": {
         "type": "text",
         "fontSize": 12,
         "fontWeight": "bold",
         "dx": 0,
-        "dy": -15
+        "dy": -12
       },
       "encoding": {
-        "text": {
-          "field": "properties.name",
-          "type": "nominal"
-        },
+        "longitude": { "field": "lon", "type": "quantitative" },
+        "latitude":  { "field": "lat", "type": "quantitative" },
+    
+        "text": { "field": "properties.name", "type": "nominal" },
+    
         "color": {
-          "condition": {
-            "test": "datum.rank_desc <= 3",
-            "value": "#dc2626"
-          },
-          "value": "#059669"
+          "condition": { "test": "datum.rank_desc <= 3", "value": "#dc2626" },
+          "value": "#059669"                                                    
         },
         "tooltip": [
           { "field": "properties.name", "type": "nominal", "title": "State" },
-          { "field": "prf_pct", "type": "quantitative", "title": "PRF %" },
-          { "field": "rank_desc", "type": "quantitative", "title": "Rank" }
+          { "field": "prf_pct", "type": "quantitative", "title": "PRF %", "format": ".1f" },
+          { "field": "rank_desc", "type": "quantitative", "title": "Rank (Top=1)" }
         ]
       }
     }
