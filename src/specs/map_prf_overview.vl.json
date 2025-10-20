@@ -8,7 +8,7 @@
   "layer": [
     {
       "data": {
-        "url": "@mys_state_province.topojson",
+        "url": "mys_state_province.topojson",
         "format": { "type": "topojson", "feature": "ne_10m_admin_1_states_provinces" }
       },
       "mark": {
