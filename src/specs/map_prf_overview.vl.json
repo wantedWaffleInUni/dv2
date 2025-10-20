@@ -8,7 +8,7 @@
   "layer": [
     {
       "data": {
-        "url": "mys_state_province.topojson",
+        "url": "https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/public/data/mys_state_province.topojson",
         "format": { "type": "topojson", "feature": "ne_10m_admin_1_states_provinces" }
       },
       "mark": {
@@ -23,7 +23,7 @@
     },
     {
       "data": {
-        "url": "@mys_state_province.topojson",
+        "url": "https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/public/data/mys_state_province.topojson",
         "format": { "type": "topojson", "feature": "ne_10m_admin_1_states_provinces" }
       },
       "transform": [
