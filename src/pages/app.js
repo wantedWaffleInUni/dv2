@@ -67,7 +67,9 @@ async function boot(){
     ...r,
     shapeISO: String(r.state_code ?? '').trim(),      // must match GeoJSON exactly
     prf_ha: Number(r.prf_ha),
-    prf_pct: Number(r.prf_pct)
+    prf_pct: Number(r.prf_pct),
+    lon: Number(r.lon ?? r.label_lon ?? r.centroid_lon ?? r.lng ?? r.longitude),
+    lat: Number(r.lat ?? r.label_lat ?? r.centroid_lat ?? r.latitude)
   }));
 
   const prfTableWithISO = prfTable.map(r => ({
