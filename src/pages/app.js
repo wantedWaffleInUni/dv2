@@ -33,12 +33,7 @@ async function boot(){
     console.error("❌ Error loading PRF Table data:", error);
   }
   
-  try {
-    shapes = await loadJSON("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/malaysia_states_fixed.geojson");
-    console.log("✅ Shapes data loaded:", shapes.features?.length, "features");
-  } catch (error) {
-    console.error("❌ Error loading shapes data:", error);
-  }
+  // Shapes no longer needed here; the map spec reads TopoJSON directly
   
   try {
     history = await loadCSV("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/public/data/prf_state_history.csv");
@@ -61,13 +56,7 @@ async function boot(){
     console.error("❌ Error loading air quality data:", error);
   }
 
-  // Build a map: state_name -> state_iso from the GeoJSON
-  const isoByName = Object.fromEntries(
-    (shapes.features || []).map(f => [
-      f.properties?.state_name, 
-      f.properties?.state_iso
-    ])
-  );
+  // Build alias map for names used in PRF table joins (kept for table)
   const aliases = {
     "W.P. Kuala Lumpur": "Kuala Lumpur",
     "W.P. Labuan": "Labuan",
@@ -83,18 +72,17 @@ async function boot(){
 
   const prfTableWithISO = prfTable.map(r => ({
     ...r,
-    shapeISO: isoByName[aliases[r.state] || r.state] || null
+    // PRF table already contains state names; ISO mapping not required for table rendering
+    shapeISO: String(r.state_code || "").trim() || null
   }));
 
 
-  console.log('geo feature sample', shapes.features?.[0]?.properties);
+  // console.log('geo feature sample', shapes.features?.[0]?.properties);
   console.log('prf sample', prfWithISO[0]);
   console.log('prfTable sample', prfTable[0]);
   console.log('prfTable length:', prfTable.length);
   console.log('prfTableWithISO length:', prfTableWithISO.length);
-  console.log('GeoJSON properties:', shapes.features?.[0]?.properties);
-  console.log('Available property keys:', Object.keys(shapes.features?.[0]?.properties || {}));
-  console.log('shapes.features length:', shapes.features?.length);
+  // Shapes are loaded in-spec; keep debug minimal here
   console.log('prfWithISO length:', prfWithISO.length);
   console.log('prfWithISO with shapeISO:', prfWithISO.filter(r => r.shapeISO));
 
@@ -134,11 +122,8 @@ async function boot(){
   ]);
 
   // Render charts
-  const mapSpec = await fetch("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/src/specs/map_prf_overview.vl.json").then(r=>r.json());
-  mapSpec.datasets = {
-    states: shapes.features || [],
-    prf: prfWithISO
-  };
+  const mapSpec = await fetch("src/specs/map_prf_overview.vl.json").then(r=>r.json());
+  mapSpec.datasets = { prf: prfWithISO };
   await renderVega("#map-prf", mapSpec);
 
   const lineSpec = await fetch("https://cdn.jsdelivr.net/gh/wantedWaffleInUni/dv2@main/src/specs/lines_prf_history.vl.json").then(r=>r.json());

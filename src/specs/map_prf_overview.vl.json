@@ -4,10 +4,13 @@
   "height": 420,
   "padding": 5,
   "autosize": { "type": "fit", "contains": "padding" },
-  "projection": { "type": "identity", "reflectY": true },
+  "projection": { "type": "mercator", "center": [109.5, 4.5], "scale": 2000 },
   "layer": [
     {
-      "data": { "name": "states" },
+      "data": {
+        "url": "@mys_state_province.topojson",
+        "format": { "type": "topojson", "feature": "ne_10m_admin_1_states_provinces" }
+      },
       "mark": {
         "type": "geoshape",
         "fill": "#d1d5db",
@@ -15,15 +18,18 @@
         "strokeWidth": 0.6
       },
       "encoding": {
-        "tooltip": [{"field": "properties.state_name", "type": "nominal", "title": "State"}]
+        "tooltip": [{"field": "properties.name", "type": "nominal", "title": "State"}]
       }
     },
     {
-      "data": { "name": "states" },
+      "data": {
+        "url": "@mys_state_province.topojson",
+        "format": { "type": "topojson", "feature": "ne_10m_admin_1_states_provinces" }
+      },
       "transform": [
-        { "filter": "isValid(datum.properties) && isValid(datum.properties.state_iso)" },
+        { "filter": "isValid(datum.properties) && isValid(datum.properties.iso_3166_2)" },
         {
-          "lookup": "properties.state_iso",
+          "lookup": "properties.iso_3166_2",
           "from": { "data": { "name": "prf" }, "key": "shapeISO",
             "fields": ["prf_pct","prf_ha","state"] }
         },
@@ -37,7 +43,7 @@
           "scale": { "scheme": "greens", "type": "quantize", "domain": [0,60] }
         },
         "tooltip": [
-          { "field": "properties.state_name", "type": "nominal", "title": "State" },
+          { "field": "properties.name", "type": "nominal", "title": "State" },
           { "field": "prf_ha", "type": "quantitative", "title": "PRF (ha)" },
           { "field": "prf_pct", "type": "quantitative", "title": "PRF %" }
         ]
