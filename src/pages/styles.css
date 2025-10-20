@@ -177,6 +177,20 @@ section {
   box-shadow: 0 4px 12px rgba(14, 165, 233, 0.15);
 }
 
+/* Two-column storytelling layout */
+.storytelling-two-column {
+  display: flex;
+  gap: 20px;
+  align-items: stretch;
+  width: 100%;
+  max-width: 100%;
+}
+
+.storytelling-half {
+  flex: 1;
+  margin: 28px 0;
+}
+
 .storytelling h3 {
   margin: 0 0 16px 0;
   font-size: 20px;

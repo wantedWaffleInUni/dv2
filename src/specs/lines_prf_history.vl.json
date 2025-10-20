@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": "container",
   "height": 260,
-  "title": "Trend — Selected state (or Malaysia total) with year marker",
+  "title": "Trend — Selected state (or Malaysia total)",
   "data": { "name": "history" },
   "params": [
     { 
