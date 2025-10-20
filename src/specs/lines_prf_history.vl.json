@@ -51,7 +51,12 @@
           "axis": { "title": null, "tickCount": 10, "format": "d" },
           "sort": "ascending"
         },
-        "y": { "field": "area_sum", "type": "quantitative", "title": "Area (ha)" },
+        "y": { 
+          "field": "area_sum", 
+          "type": "quantitative", 
+          "title": "Area (ha)",
+          "scale": { "domain": [12000000, 14000000] }
+        },
         "tooltip": [
           { "field": "year_num", "type": "quantitative", "title": "Year", "format": "d" },
           { "field": "area_sum", "type": "quantitative", "title": "Area (ha)", "format": "," }
