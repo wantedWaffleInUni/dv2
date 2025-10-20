@@ -4,7 +4,7 @@
   "height": 420,
   "padding": 5,
   "autosize": { "type": "fit", "contains": "padding" },
-  "projection": { "type": "mercator", "center": [109.5, 4.5], "scale": 2000 },
+  "projection": { "type": "mercator", "center": [109.5, 4.5], "scale": 3000 },
   "layer": [
     {
       "data": {
