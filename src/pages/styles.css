@@ -248,3 +248,32 @@ section {
   flex-direction: column;
   justify-content: center;
 }
+
+.authorship {
+  margin-top: 12px;
+  padding: 12px 16px;
+  border: 1px solid #e5e7eb33;
+  /* subtle */
+  border-radius: 12px;
+  background: #0f1115;
+  /* dark-friendly card */
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.authorship .byline {
+  color: #e2e8f0;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.authorship .meta {
+  opacity: 0.9;
+}
+
+.authorship a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
