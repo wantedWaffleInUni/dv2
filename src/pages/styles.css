@@ -7,13 +7,13 @@
 body {
   margin: 0;
   color: #1f2937;
-  background: #fafafa;
+  background: linear-gradient(135deg, #f0f9f0 0%, #e8f5e8 100%);
 }
 
 .topbar {
   padding: var(--pad);
-  border-bottom: 1px solid #e5e7eb;
-  background: #fff;
+  border-bottom: 1px solid #2d5a2d;
+  background: linear-gradient(135deg, #f0f9f0 0%, #e8f5e8 100%);
   text-align: center;
 }
 
@@ -48,8 +48,8 @@ section {
 }
 
 .card {
-  background: #fff;
-  border: 1px solid #e5e7eb;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fdf8 100%);
+  border: 1px solid #2d5a2d;
   border-radius: 12px;
   padding: 16px;
 }
@@ -74,6 +74,7 @@ section {
   flex: 1;
   max-width: 50%;
 }
+
 /* 
 .table-half {
   flex: 1;

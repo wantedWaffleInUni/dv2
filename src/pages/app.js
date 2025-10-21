@@ -109,14 +109,7 @@ async function boot(){
   console.log('Table rows length:', rows.length);
   console.log('Table rows:', rows);
   console.log('prfTable data:', prfTable);
-  
-  // Debug the data joining
-  console.log('🔍 Debugging data joining:');
-  console.log('GeoJSON first feature properties:', shapes.features?.[0]?.properties);
-  console.log('PRF first record:', prfWithISO[0]);
-  console.log('Available GeoJSON fields:', Object.keys(shapes.features?.[0]?.properties || {}));
-  console.log('Available PRF fields:', Object.keys(prfWithISO[0] || {}));
-  
+
   renderTable("#state-rank", rows, [
     {key:"state", label:"State"},
     {key:"prf_ha", label:"PRF (ha)"},
