@@ -78,16 +78,6 @@ async function boot(){
     shapeISO: String(r.state_code || "").trim() || null
   }));
 
-
-  // console.log('geo feature sample', shapes.features?.[0]?.properties);
-  console.log('prf sample', prfWithISO[0]);
-  console.log('prfTable sample', prfTable[0]);
-  console.log('prfTable length:', prfTable.length);
-  console.log('prfTableWithISO length:', prfTableWithISO.length);
-  // Shapes are loaded in-spec; keep debug minimal here
-  console.log('prfWithISO length:', prfWithISO.length);
-  console.log('prfWithISO with shapeISO:', prfWithISO.filter(r => r.shapeISO));
-
   // KPIs (naive placeholders)
   const totalPRF = prfWithISO.reduce((s,r)=>s+Number(r.prf_ha||0),0);
   const kpiRoot = document.getElementById("kpis");
@@ -103,12 +93,6 @@ async function boot(){
   }))
   .sort((a,b)=>Number(b.prf_ha.replace(/,/g,""))-Number(a.prf_ha.replace(/,/g,"")))
   .slice(0, 5); // Show only top 5
-  
-  console.log('prfTable length:', prfTable.length);
-  console.log('prfTableWithISO length:', prfTableWithISO.length);
-  console.log('Table rows length:', rows.length);
-  console.log('Table rows:', rows);
-  console.log('prfTable data:', prfTable);
 
   renderTable("#state-rank", rows, [
     {key:"state", label:"State"},
